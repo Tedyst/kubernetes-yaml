@@ -10,4 +10,5 @@ k3os:
   - 1.us.pool.ntp.org
   k3s_args:
   - server
-  - "--volume-plugin-dir=/var/lib/kubelet/volumeplugins"
+  - "--kubelet-arg" 
+  - "volume-plugin-dir=/var/lib/kubelet/volumeplugins"
