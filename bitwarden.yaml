@@ -1,0 +1,121 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tedy
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: bitwarden
+  namespace: tedy
+  annotations:
+    ingress.kubernetes.io/force-hsts: "true"
+    ingress.kubernetes.io/ssl-redirect: "true"
+    ingress.kubernetes.io/ssl-force-host: "true"
+spec:
+  rules:
+  - host: bitwarden.stoicatedy.ovh
+    http:
+      paths:
+      - backend:
+          serviceName: bitwarden-http
+          servicePort: 80
+        path: /
+      - backend:
+          serviceName: bitwarden-http
+          servicePort: 80
+        path: /notifications/hub/negotiate
+      - backend:
+          serviceName: bitwarden-websockets
+          servicePort: 3012
+        path: /notifications/hub
+---
+kind: Deployment
+apiVersion: apps/v1beta2
+metadata:
+  labels:
+    k8s-app: bitwarden
+  name: bitwarden
+  namespace: tedy
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      k8s-app: bitwarden
+  template:
+    metadata:
+      labels:
+        k8s-app: bitwarden
+    spec:
+      terminationGracePeriodSeconds: 2
+      containers:
+      - name: bitwarden
+        image: mprasil/bitwarden:latest
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        - containerPort: 3012
+          protocol: TCP
+        env:
+          - name: WEBSOCKET_ENABLED
+            value: "true"
+          - name: SIGNUPS_ALLOWED
+            value: "true"
+          - name: SHOW_PASSWORD_HINT
+            value: "false"
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        livenessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          timeoutSeconds: 30
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: bitwarden
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bitwarden-http
+  namespace: tedy
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+  selector:
+    k8s-app: bitwarden
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bitwarden-websockets
+  namespace: tedy
+spec:
+  ports:
+  - name: http
+    port: 3012
+    protocol: TCP
+  selector:
+    k8s-app: bitwarden
+  type: ClusterIP
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: bitwarden
+  namespace: tedy
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 300Mi
