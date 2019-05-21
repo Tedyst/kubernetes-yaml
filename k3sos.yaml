@@ -8,7 +8,6 @@ k3os:
   ntp_servers:
   - 0.us.pool.ntp.org
   - 1.us.pool.ntp.org
-  password: rancher
   k3s_args:
   - server
   - --volume-plugin-dir=/var/lib/kubelet/volumeplugins
