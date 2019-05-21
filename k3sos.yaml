@@ -1,0 +1,14 @@
+ssh_authorized_keys:
+- github:Tedyst
+
+k3os:
+  dns_nameservers:
+  - 8.8.8.8
+  - 1.1.1.1
+  ntp_servers:
+  - 0.us.pool.ntp.org
+  - 1.us.pool.ntp.org
+  password: rancher
+  k3s_args:
+  - server
+  - --volume-plugin-dir=/var/lib/kubelet/volumeplugins
