@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: argocd
+  namespace: argocd
+spec:
+  rules:
+  - host: argocd.stoicatedy.ovh
+    http:
+      paths:
+      - backend:
+          serviceName: argocd-server
+          servicePort: http
+        path: /
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: argo
+  namespace: argo
+spec:
+  rules:
+  - host: argoci.stoicatedy.ovh
+    http:
+      paths:
+      - backend:
+          serviceName: argo-ui
+          servicePort: 80
+        path: /
