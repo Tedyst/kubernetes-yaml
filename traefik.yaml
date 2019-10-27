@@ -1,0 +1,21 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  chart: https://%{KUBERNETES_API}%/static/charts/traefik-1.77.1.tgz
+  valuesContent: |-
+    rbac.enabled: true
+    ssl.enabled: true
+    metrics.prometheus.enabled: true
+    kubernetes.ingressEndpoint.useDefaultPublishedService: true
+    acme.enabled: true
+    acme.challengeType: "dns-01"
+    acme.dnsProvider.name: "cloudflare"
+    acme.email: "stoicatedy@gmail.com"
+    acme.domains.enabled: true
+    acme.domains.domainsList: [
+      "*.stoicatedy.ovh"
+    ]
+    acme.domains.existingSecretName: traefik
