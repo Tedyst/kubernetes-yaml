@@ -1,0 +1,17 @@
+ssh_authorized_keys:
+- github:Tedyst
+
+k3os:
+  dns_nameservers:
+  - 1.1.1.1
+  - 8.8.8.8
+  ntp_servers:
+  - 0.ro.pool.ntp.org
+  - 1.ro.pool.ntp.org
+  hostname: VM
+  k3s_args:
+  - server
+  - "--kubelet-arg" 
+  - "volume-plugin-dir=/var/lib/kubelet/volumeplugins"
+  - "--kubelet-arg"
+  - "address=0.0.0.0"
