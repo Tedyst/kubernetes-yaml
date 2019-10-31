@@ -1,0 +1,10 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: metrics
+  namespace: kube-system
+spec:
+  chart: stable/metrics-server
+  set:
+    rbac.enabled: "true"
+    serviceAccount.name: "metrics"
