@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: authelia-ingress
+  namespace: authelia
+spec:
+  rules:
+    - host: auth.stoicatedy.ovh
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: authelia-service
+              servicePort: 10001

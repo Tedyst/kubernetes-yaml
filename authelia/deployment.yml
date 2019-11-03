@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authelia
+  namespace: authelia
+  labels:
+    app: authelia
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authelia
+  template:
+    metadata:
+      labels:
+        app: authelia
+    spec:
+      containers:
+        - name: authelia
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "100M"
+          image: clems4ever/authelia:master
+          ports:
+            - containerPort: 10001
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/authelia
+            - name: secret-volume
+              mountPath: /secret
+            - name: storage-volume
+              mountPath: /storage
+      volumes:
+        - name: config-volume
+          configMap:
+            name: authelia-config
+        - name: secret-volume
+          secret:
+            secretName: authelia-secret
+        - name: storage-volume
+          persistentVolumeClaim:
+            claimName: authelia-storage
