@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jellyfin
+  namespace: tedy
+  labels:
+    app: jellyfin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jellyfin
+  template:
+    metadata:
+      labels:
+        app: jellyfin
+    spec:
+      containers:
+        - name: jellyfin
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: spec.nodeName
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+          resources:
+            limits:
+              cpu: "10000m"
+              memory: "300M"
+            requests:
+              cpu: "1000m"
+              memory: "300M"
+          image: linuxserver/jellyfin:latest
+          ports:
+            - containerPort: 8096
+              protocol: TCP
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+            - name: media-volume
+              mountPath: /media
+            - name: videocard
+              mountPath: /dev/dri
+          securityContext:
+            privileged: true
+      volumes:
+        - name: config-volume
+          hostPath:
+            path: /media/hddext4/jellyfin/config
+        - name: media-volume
+          hostPath:
+            path: /media/hddext4/jellyfin/media
+        - name: videocard
+          hostPath:
+            path: /dev/dri

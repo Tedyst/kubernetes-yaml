@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: jellyfin-ingress
+  namespace: tedy
+spec:
+  rules:
+    - host: jellyfin.stoicatedy.ovh
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: jellyfin-service
+              servicePort: 8096
