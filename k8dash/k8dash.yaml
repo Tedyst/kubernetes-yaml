@@ -52,6 +52,9 @@ apiVersion: extensions/v1beta1
 metadata:
   name: k8dash
   namespace: kube-system
+  annotations:
+    ingress.kubernetes.io/auth-type: forward
+    ingress.kubernetes.io/auth-url: "https://auth.stoicatedy.ovh/api/verify?rd=https://k8dash.stoicatedy.ovh"
 spec:
   rules:
     - host: k8dash.stoicatedy.ovh

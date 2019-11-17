@@ -21,7 +21,8 @@ spec:
             limits:
               cpu: "500m"
               memory: "100M"
-          image: clems4ever/authelia:master
+          image: clems4ever/authelia:master-amd64
+          imagePullPolicy: Always
           ports:
             - containerPort: 10001
           volumeMounts:
