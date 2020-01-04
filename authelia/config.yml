@@ -4,7 +4,7 @@ metadata:
   name: authelia-config
   namespace: authelia
 data:
-  config.yml: |-
+  configuration.yml: |-
     port: 10001
     logs_level: debug
     jwt_secret: some_secret
