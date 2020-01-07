@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gotify
+  name: gotify-armv7
   namespace: tedy
   labels:
     app: gotify
@@ -15,6 +15,8 @@ spec:
       labels:
         app: gotify
     spec:
+      nodeSelector:
+        beta.kubernetes.io/arch: arm
       containers:
         - name: gotify
           resources:
@@ -24,7 +26,7 @@ spec:
             requests:
               cpu: "100m"
               memory: "50M"
-          image: gotify/server:latest
+          image: gotify/server-arm7:latest
           ports:
             - containerPort: 80
               protocol: TCP
