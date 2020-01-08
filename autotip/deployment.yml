@@ -1,0 +1,47 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    k8s-app: autotip
+  name: autotip
+  namespace: tedy
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      k8s-app: autotip
+  template:
+    metadata:
+      labels:
+        k8s-app: autotip
+    spec:
+      terminationGracePeriodSeconds: 2
+      containers:
+        - name: autotip
+          image: tedyst/node-autotip:latest
+          resources:
+            limits:
+              memory: "100Mi"
+              cpu: "500m"
+          env:
+            - name: HYPIXEL_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: HYPIXEL_API_KEY
+                  name: autotip-secret
+            - name: UUID
+              valueFrom:
+                secretKeyRef:
+                  key: UUID
+                  name: autotip-secret
+            - name: USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: USERNAME
+                  name: autotip-secret
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: PASSWORD
+                  name: autotip-secret
