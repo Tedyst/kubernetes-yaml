@@ -1,0 +1,47 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    k8s-app: hypixelonlinenotifier
+  name: hypixelonlinenotifier
+  namespace: tedy
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      k8s-app: hypixelonlinenotifier
+  template:
+    metadata:
+      labels:
+        k8s-app: hypixelonlinenotifier
+    spec:
+      terminationGracePeriodSeconds: 2
+      containers:
+        - name: hypixelonlinenotifier
+          image: tedyst/hypixelonlinenotifier:latest
+          resources:
+            limits:
+              memory: "100Mi"
+              cpu: "500m"
+          env:
+            - name: HYPIXEL_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: HYPIXEL_API_KEY
+                  name: hypixelonlinenotifier-secret
+            - name: GOTIFY_URL
+              valueFrom:
+                secretKeyRef:
+                  key: GOTIFY_URL
+                  name: hypixelonlinenotifier-secret
+            - name: GOTIFY_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: GOTIFY_TOKEN
+                  name: hypixelonlinenotifier-secret
+            - name: PLAYERS
+              valueFrom:
+                secretKeyRef:
+                  key: PLAYERS
+                  name: hypixelonlinenotifier-secret
