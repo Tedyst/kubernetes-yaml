@@ -1,0 +1,37 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cloudflare-updater
+  namespace: tedy
+spec:
+  schedule: "0 */2 * * *"
+  successfulJobsHistoryLimit: 0
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: cloudflare-updater
+              image: tedyst/cloudflare-docker-updater:latest
+              env:
+                - name: CFZONEID
+                  valueFrom:
+                    secretKeyRef:
+                      name: cloudflare-secret
+                      key: CFZONEID
+                - name: CFUSERID
+                  valueFrom:
+                    secretKeyRef:
+                      name: cloudflare-secret
+                      key: CFUSERID
+                - name: CFTOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      name: cloudflare-secret
+                      key: CFTOKEN
+                - name: CFHOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: cloudflare-secret
+                      key: CFHOST
+          restartPolicy: OnFailure
