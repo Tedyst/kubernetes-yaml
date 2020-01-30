@@ -8,12 +8,6 @@ data:
     smtpd_banner = $myhostname ESMTP $mail_name (Ubuntu)
     biff = no
 
-    debug_peer_level = 4
-    smtp_host_lookup = native
-    lmtp_host_lookup = native
-    ignore_mx_lookup_error = yes
-    disable_dns_lookups = yes
-
     # appending .domain is the MUA's job.
     append_dot_mydomain = no
 
@@ -75,7 +69,7 @@ data:
       permit
   pgsql-relay-domains.cf: |
     # postgres config
-    hosts = 10.43.56.116
+    hosts = email-db
     user = myuser
     password = mypassword
     dbname = simplelogin
@@ -84,7 +78,7 @@ data:
         UNION SELECT '%s' WHERE '%s' = 'stoicatedy.ovh' LIMIT 1;
   pgsql-transport-maps.cf: |
     # postgres config
-    hosts = 10.43.56.116
+    hosts = email-db
     user = myuser
     password = mypassword
     dbname = simplelogin
