@@ -1,0 +1,45 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    k8s-app: email-postfix
+  name: email-postfix
+  namespace: tedy
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      k8s-app: email-postfix
+  template:
+    metadata:
+      labels:
+        k8s-app: email-postfix
+    spec:
+      terminationGracePeriodSeconds: 2
+      containers:
+        - name: postfix
+          image: tedyst/postfix-pqsql-docker:v1.0
+          imagePullPolicy: Always
+          resources:
+            limits:
+              memory: "300Mi"
+              cpu: "500m"
+          ports:
+            - hostPort: 25
+              containerPort: 25
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /etc/postfix/main.cf
+              name: data
+              subPath: main.cf
+            - mountPath: /etc/postfix/pgsql-relay-domains.cf
+              name: data
+              subPath: pgsql-relay-domains.cf
+            - mountPath: /etc/postfix/pgsql-transport-maps.cf
+              name: data
+              subPath: pgsql-transport-maps.cf
+      volumes:
+        - name: data
+          configMap:
+            name: email-postfix

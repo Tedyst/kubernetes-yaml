@@ -1,0 +1,61 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    k8s-app: email-emailhandler
+  name: email-emailhandler
+  namespace: tedy
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      k8s-app: email-emailhandler
+  template:
+    metadata:
+      labels:
+        k8s-app: email-emailhandler
+    spec:
+      terminationGracePeriodSeconds: 2
+      containers:
+        - name: simplelogin
+          image: simplelogin/app:1.0.3
+          resources:
+            limits:
+              memory: "300Mi"
+              cpu: "500m"
+          command: ["python"]
+          args: ["email_handler.py"]
+          ports:
+            - containerPort: 20381
+              protocol: TCP
+          env:
+            - name: URL
+              value: "http://app.stoicatedy.ovh"
+            - name: SUPPORT_EMAIL
+              value: "support@stoicatedy.ovh"
+            - name: FLASK_ENV
+              value: "development"
+            - name: FLASK_DEBUG
+              value: "1"
+            - name: EMAIL_DOMAIN
+              value: "stoicatedy.ovh"
+            - name: EMAIL_SERVERS_WITH_PRIORITY
+              value: "[(10, \"stoicatedy.ovh.\")]"
+            - name: DISABLE_ALIAS_SUFFIX
+              value: "1"
+            - name: DKIM_PRIVATE_KEY_PATH
+              value: "/secret/private.key"
+            - name: DKIM_PUBLIC_KEY_PATH
+              value: "/secret/public.key"
+            - name: DB_URI
+              value: "postgresql://myuser:mypassword@email-db:5432/simplelogin"
+            - name: FLASK_SECRET
+              value: "somerandomsecret"
+          volumeMounts:
+            - name: data
+              mountPath: /secret
+      volumes:
+        - name: data
+          secret:
+            secretName: email-simplelogin

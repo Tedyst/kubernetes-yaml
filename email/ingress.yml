@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mail
+  namespace: tedy
+  annotations:
+    ingress.kubernetes.io/force-hsts: "true"
+    ingress.kubernetes.io/ssl-redirect: "true"
+    ingress.kubernetes.io/ssl-force-host: "true"
+spec:
+  rules:
+    - host: mail.stoicatedy.ovh
+      http:
+        paths:
+          - backend:
+              serviceName: email-simplelogin
+              servicePort: 7777
+            path: /
