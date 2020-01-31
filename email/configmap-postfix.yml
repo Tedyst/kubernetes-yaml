@@ -11,6 +11,8 @@ data:
     # appending .domain is the MUA's job.
     append_dot_mydomain = no
 
+    inet_protocols = ipv4
+
     # Uncomment the next line to generate "delayed mail" warnings
     #delay_warning_time = 4h
 
@@ -37,6 +39,12 @@ data:
     myhostname = mail.stoicatedy.ovh
     mydomain = stoicatedy.ovh
     myorigin = stoicatedy.ovh
+
+    relayhost = smtp.rdslink.ro
+    smtp_sasl_auth_enable = yes
+    smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+    smtp_sasl_security_options = 
+
 
     relay_domains = pgsql:/etc/postfix/pgsql-relay-domains.cf
     transport_maps = pgsql:/etc/postfix/pgsql-transport-maps.cf
@@ -69,7 +77,7 @@ data:
       permit
   pgsql-relay-domains.cf: |
     # postgres config
-    hosts = email-db
+    hosts = 10.43.56.116
     user = myuser
     password = mypassword
     dbname = simplelogin
@@ -78,11 +86,13 @@ data:
         UNION SELECT '%s' WHERE '%s' = 'stoicatedy.ovh' LIMIT 1;
   pgsql-transport-maps.cf: |
     # postgres config
-    hosts = email-db
+    hosts = 10.43.56.116
     user = myuser
     password = mypassword
     dbname = simplelogin
 
-    # forward to smtp:email-emailhandler:20381 for custom domain AND email domain
-    query = SELECT 'smtp:email-emailhandler:20381' FROM custom_domain WHERE domain = '%s' AND verified=true 
-        UNION SELECT 'smtp:email-emailhandler:20381' WHERE '%s' = 'stoicatedy.ovh' LIMIT 1;
+    # forward to smtp:10.43.212.0:20381 for custom domain AND email domain
+    query = SELECT 'smtp:10.43.212.0:20381' FROM custom_domain WHERE domain = '%s' AND verified=true 
+        UNION SELECT 'smtp:10.43.212.0:20381' WHERE '%s' = 'stoicatedy.ovh' LIMIT 1;
+  sasl_passwd: |
+    [smtp.gmail.com]:587 username@gmail.com:password

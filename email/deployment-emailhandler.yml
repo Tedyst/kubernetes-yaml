@@ -36,6 +36,8 @@ spec:
               value: "support@stoicatedy.ovh"
             - name: FLASK_ENV
               value: "development"
+            - name: POSTFIX_SERVER
+              value: "smtp.rdslink.ro"
             - name: FLASK_DEBUG
               value: "1"
             - name: EMAIL_DOMAIN

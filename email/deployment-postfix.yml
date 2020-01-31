@@ -17,6 +17,7 @@ spec:
         k8s-app: email-postfix
     spec:
       terminationGracePeriodSeconds: 2
+      hostNetwork: true
       containers:
         - name: postfix
           image: tedyst/postfix-pqsql-docker:v1.0
@@ -26,8 +27,7 @@ spec:
               memory: "300Mi"
               cpu: "500m"
           ports:
-            - hostPort: 25
-              containerPort: 25
+            - containerPort: 25
               protocol: TCP
           volumeMounts:
             - mountPath: /etc/postfix/main.cf
@@ -39,6 +39,9 @@ spec:
             - mountPath: /etc/postfix/pgsql-transport-maps.cf
               name: data
               subPath: pgsql-transport-maps.cf
+            - mountPath: /etc/postfix/sasl_passwd
+              name: data
+              subPath: sasl_passwd
       volumes:
         - name: data
           configMap:
