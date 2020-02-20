@@ -35,11 +35,9 @@ spec:
             - name: SUPPORT_EMAIL
               value: "support@stoicatedy.ovh"
             - name: FLASK_ENV
-              value: "development"
+              value: "production"
             - name: POSTFIX_SERVER
               value: "smtp.rdslink.ro"
-            - name: FLASK_DEBUG
-              value: "1"
             - name: EMAIL_DOMAIN
               value: "stoicatedy.ovh"
             - name: EMAIL_SERVERS_WITH_PRIORITY
@@ -53,7 +51,10 @@ spec:
             - name: DB_URI
               value: "postgresql://myuser:mypassword@email-db:5432/simplelogin"
             - name: FLASK_SECRET
-              value: "somerandomsecret"
+              valueFrom:
+                secretKeyRef:
+                  key: flask-secret
+                  name: email-simplelogin
           volumeMounts:
             - name: data
               mountPath: /secret
