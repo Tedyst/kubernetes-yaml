@@ -18,4 +18,3 @@ spec:
     acme.dnsProvider.existingSecretName: "traefik-cloudflare"
     acme.domains.domainsList[0].main: "*.stoicatedy.ovh"
     acme.staging: "false"
-    debug.enabled: "true"

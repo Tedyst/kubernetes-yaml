@@ -15,6 +15,7 @@ spec:
       labels:
         app: jellyfin
     spec:
+      hostNetwork: true
       containers:
         - name: jellyfin
           env:
@@ -40,13 +41,13 @@ spec:
             requests:
               cpu: "1000m"
               memory: "300M"
-          image: linuxserver/jellyfin:latest
+          image: linuxserver/jellyfin:20200216-ls13
           ports:
             - containerPort: 8096
               protocol: TCP
             - containerPort: 1900
               hostPort: 1900
-              protocol: TCP
+              protocol: UDP
           volumeMounts:
             - name: config-volume
               mountPath: /config
