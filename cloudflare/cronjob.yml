@@ -4,7 +4,7 @@ metadata:
   name: cloudflare-updater
   namespace: tedy
 spec:
-  schedule: "0 */2 * * *"
+  schedule: "0 */1 * * *"
   successfulJobsHistoryLimit: 0
   jobTemplate:
     spec:
