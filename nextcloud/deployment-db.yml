@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud-db
+  namespace: tedy
+  labels:
+    app: nextcloud-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nextcloud-db
+  template:
+    metadata:
+      labels:
+        app: nextcloud-db
+    spec:
+      containers:
+        - name: nextcloud-db
+          image: mariadb:10.5
+          resources:
+            limits:
+              cpu: "1000m"
+              memory: "300M"
+            requests:
+              cpu: "1000m"
+              memory: "300M"
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                  secretKeyRef:
+                    key: password
+                    name: nextcloud-db
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+              claimName: nextcloud-db
