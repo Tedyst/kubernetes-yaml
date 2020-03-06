@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nextcloud-ingress
+  namespace: tedy
+spec:
+  rules:
+    - host: nextcloud.stoicatedy.ovh
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: nextcloud-service
+              servicePort: 80
