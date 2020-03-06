@@ -23,8 +23,8 @@ spec:
               cpu: "100m"
               memory: "300M"
             requests:
-              cpu: "100m"
-              memory: "300M"
+              cpu: "50m"
+              memory: "150M"
           ports:
             - containerPort: 3306
           env:

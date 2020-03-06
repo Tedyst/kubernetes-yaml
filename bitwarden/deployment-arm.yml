@@ -6,8 +6,8 @@ metadata:
   name: bitwarden-arm
   namespace: tedy
 spec:
-  replicas: 1
-  revisionHistoryLimit: 3
+  replicas: 0
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       k8s-app: bitwarden
@@ -24,8 +24,8 @@ spec:
           image: mprasil/bitwarden:armv6
           resources:
             limits:
-              memory: "100Mi"
-              cpu: "500m"
+              memory: "50Mi"
+              cpu: "50m"
           ports:
             - containerPort: 80
               protocol: TCP

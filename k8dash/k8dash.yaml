@@ -27,8 +27,11 @@ spec:
             timeoutSeconds: 30
           resources:
             limits:
-              memory: "100Mi"
-              cpu: "100m"
+              memory: "50Mi"
+              cpu: "200m"
+            requests:
+              memory: "50Mi"
+              cpu: "50m"
 
       nodeSelector:
         "beta.kubernetes.io/os": linux

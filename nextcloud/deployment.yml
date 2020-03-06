@@ -20,11 +20,11 @@ spec:
           image: nextcloud:18.0.1
           resources:
             limits:
-              cpu: "100m"
-              memory: "300M"
+              cpu: "500m"
+              memory: "100M"
             requests:
               cpu: "100m"
-              memory: "300M"
+              memory: "50M"
           volumeMounts:
             - name: data
               mountPath: /var/www/html/

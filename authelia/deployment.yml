@@ -19,8 +19,8 @@ spec:
         - name: authelia
           resources:
             limits:
-              cpu: "100m"
-              memory: "100M"
+              cpu: "50m"
+              memory: "30M"
           image: clems4ever/authelia:master
           imagePullPolicy: Always
           ports:

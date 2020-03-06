@@ -21,10 +21,10 @@ spec:
           resources:
             limits:
               cpu: "100m"
-              memory: "300M"
+              memory: "100M"
             requests:
-              cpu: "100m"
-              memory: "300M"
+              cpu: "50m"
+              memory: "50M"
           ports:
             - containerPort: 6379
               protocol: TCP

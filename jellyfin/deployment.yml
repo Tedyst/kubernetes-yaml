@@ -39,7 +39,7 @@ spec:
               cpu: "10000m"
               memory: "300M"
             requests:
-              cpu: "1000m"
+              cpu: "500m"
               memory: "300M"
           image: linuxserver/jellyfin:20200216-ls13
           ports:
