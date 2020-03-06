@@ -23,7 +23,7 @@ spec:
           resources:
             limits:
               memory: "300Mi"
-              cpu: "500m"
+              cpu: "100m"
           command: ["python"]
           args: ["email_handler.py"]
           ports:

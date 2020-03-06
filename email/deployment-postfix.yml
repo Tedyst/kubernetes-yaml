@@ -25,7 +25,7 @@ spec:
           resources:
             limits:
               memory: "300Mi"
-              cpu: "500m"
+              cpu: "100m"
           ports:
             - containerPort: 25
               protocol: TCP
