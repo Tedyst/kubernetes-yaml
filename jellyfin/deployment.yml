@@ -7,6 +7,8 @@ metadata:
     app: jellyfin
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: jellyfin
@@ -15,6 +17,7 @@ spec:
       labels:
         app: jellyfin
     spec:
+      terminationGracePeriodSeconds: 0
       hostNetwork: true
       containers:
         - name: jellyfin

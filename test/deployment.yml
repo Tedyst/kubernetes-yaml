@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: headers
+  namespace: tedy
+  labels:
+    app: headers
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: headers
+  template:
+    metadata:
+      labels:
+        app: headers
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: headers
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "30M"
+            requests:
+              cpu: "50m"
+              memory: "30M"
+          image: brndnmtthws/nginx-echo-headers
+          ports:
+            - containerPort: 8080

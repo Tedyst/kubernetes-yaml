@@ -51,7 +51,7 @@ spec:
               mountPath: /secret
       containers:
         - name: simplelogin
-          image: simplelogin/app:1.0.3
+          image: simplelogin/app:1.0.5
           resources:
             limits:
               memory: "300Mi"
@@ -77,12 +77,26 @@ spec:
               value: "smtp.rdslink.ro"
             - name: DISABLE_ALIAS_SUFFIX
               value: "1"
-            - name: DISABLE_REGISTRATION
-              value: "1"
+            # - name: DISABLE_REGISTRATION
+            #   value: "1"
             - name: DKIM_PRIVATE_KEY_PATH
               value: "/secret/private.key"
             - name: DKIM_PUBLIC_KEY_PATH
               value: "/secret/public.key"
+            - name: GITHUB_CLIENT_ID
+              value: "daed64612a783fdeef0a"
+            - name: GITHUB_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: github-secret
+                  name: email-simplelogin
+            - name: GOOGLE_CLIENT_ID
+              value: "585031273128-abbrsk4oujgee2q91d4op0obc72o43on.apps.googleusercontent.com"
+            - name: GOOGLE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: google-secret
+                  name: email-simplelogin
             - name: DB_URI
               value: "postgresql://myuser:mypassword@email-db:5432/simplelogin"
             - name: FLASK_SECRET
