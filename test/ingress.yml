@@ -2,10 +2,10 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: headers-ingress
-  namespace: tedy
+  namespace: nastasa
 spec:
   rules:
-    - host: headers.stoicatedy.ovh
+    - host: headers-nastasa.stoicatedy.ovh
       http:
         paths:
           - path: /

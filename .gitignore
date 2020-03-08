@@ -2,3 +2,7 @@
 Secret.yaml
 secret.yml
 secret*
+*.key
+*.crt
+*.csr
+nastasa-k8s-config

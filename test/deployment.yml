@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: headers
-  namespace: tedy
+  namespace: nastasa
   labels:
     app: headers
 spec:
