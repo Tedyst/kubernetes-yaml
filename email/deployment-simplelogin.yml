@@ -19,7 +19,7 @@ spec:
       terminationGracePeriodSeconds: 2
       initContainers:
         - name: simplelogin-migrate
-          image: simplelogin/app:1.0.3
+          image: simplelogin/app:1.0.5
           command: ['flask']
           args: ['db', 'upgrade']
           env:
