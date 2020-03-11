@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nextcloud
+  name: nextcloud-nginx
   namespace: tedy
   labels:
-    app: nextcloud
+    app: nextcloud-nginx
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nextcloud
+      app: nextcloud-nginx
   template:
     metadata:
       labels:
-        app: nextcloud
+        app: nextcloud-nginx
     spec:
       containers:
-        - name: nextcloud
-          image: nextcloud:18.0.1-fpm
+        - name: nextcloud-nginx
+          image: nginx
           resources:
             limits:
               cpu: "500m"
@@ -28,7 +28,16 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /var/www/html/
+            - name: config
+              readOnly: true
+              mountPath: /etc/nginx/
       volumes:
         - name: data
           hostPath:
             path: /media/hddext4/nextcloud
+        - name: config
+          configMap:
+            name: nextcloud-nginx
+            items:
+            - key: nginx.conf
+              path: nginx.conf

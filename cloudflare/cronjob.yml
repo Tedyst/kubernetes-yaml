@@ -5,6 +5,8 @@ metadata:
   namespace: tedy
 spec:
   schedule: "0 */1 * * *"
+  startingDeadlineSeconds: 0
+  failedJobsHistoryLimit: 0
   successfulJobsHistoryLimit: 0
   jobTemplate:
     spec:
