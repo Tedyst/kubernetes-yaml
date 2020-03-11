@@ -4,8 +4,9 @@ metadata:
   name: nextcloud-nginx
 data:
   nginx.conf: |
+    resolver 10.43.0.10;
     upstream php-handler {
-        server nextcloud:9000;
+        server nextcloud.tedy.svc.cluster.local:9000;
     }
 
     server {
@@ -17,8 +18,10 @@ data:
         add_header X-XSS-Protection "1; mode=block";
         add_header X-Robots-Tag none;
         add_header X-Download-Options noopen;
+        add_header X-Frame-Options SAMEORIGIN;
         add_header X-Permitted-Cross-Domain-Policies none;
         add_header Referrer-Policy no-referrer;
+        add_header Strict-Transport-Security 15552000;
 
         fastcgi_hide_header X-Powered-By;
 

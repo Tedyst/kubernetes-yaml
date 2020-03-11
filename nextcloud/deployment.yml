@@ -18,6 +18,8 @@ spec:
       containers:
         - name: nextcloud
           image: nextcloud:18.0.1-fpm
+          ports:
+            - containerPort: 9000
           resources:
             limits:
               cpu: "500m"
