@@ -1,0 +1,55 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: qbittorrent
+  namespace: filme
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      k8s-app: qbittorrent
+  template:
+    metadata:
+      labels:
+        k8s-app: qbittorrent
+    spec:
+      containers:
+        - name: qbittorrent
+          image: linuxserver/qbittorrent:latest
+          env:
+            - name: WEBUI_PORT
+              value: "8080"
+          ports:
+            - containerPort: 8080
+            - containerPort: 6881
+              protocol: UDP
+              hostPort: 6881
+            - containerPort: 6881
+              protocol: TCP
+              hostPort: 6881
+          volumeMounts:
+            - mountPath: /config
+              name: config
+            - mountPath: /downloads
+              name: downloads
+          resources:
+            limits:
+              memory: "400Mi"
+              cpu: "500m"
+            requests:
+              memory: "100Mi"
+              cpu: "100m"
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: qbittorrent-config
+        - name: downloads
+          hostPath:
+            path: /media/hddext4/K8s/qbittorrent/
+      terminationGracePeriodSeconds: 0
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: amd64
+        kubernetes.io/hostname: tedy-desktop-debian

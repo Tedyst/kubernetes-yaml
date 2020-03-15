@@ -19,7 +19,7 @@ spec:
       terminationGracePeriodSeconds: 2
       initContainers:
         - name: simplelogin-migrate
-          image: simplelogin/app:1.0.5
+          image: simplelogin/app:2.0.0
           command: ['flask']
           args: ['db', 'upgrade']
           env:
@@ -51,7 +51,7 @@ spec:
               mountPath: /secret
       containers:
         - name: simplelogin
-          image: simplelogin/app:1.0.5
+          image: simplelogin/app:2.0.0
           resources:
             limits:
               memory: "300Mi"
@@ -111,3 +111,7 @@ spec:
         - name: data
           secret:
             secretName: email-simplelogin
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: amd64
+        kubernetes.io/hostname: tedy-desktop-debian

@@ -18,7 +18,8 @@ spec:
     spec:
       terminationGracePeriodSeconds: 2
       nodeSelector:
-        beta.kubernetes.io/arch: arm
+        kubernetes.io/os: linux
+        kubernetes.io/arch: arm
       containers:
         - name: bitwarden
           image: mprasil/bitwarden:armv6

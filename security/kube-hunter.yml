@@ -10,5 +10,8 @@ spec:
         image: aquasec/kube-hunter 
         command: ["python", "kube-hunter.py"]
         args: ["--pod"]
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: amd64
       restartPolicy: Never
   backoffLimit: 4

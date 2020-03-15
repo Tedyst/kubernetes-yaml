@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: jellyfin
-  namespace: tedy
+  namespace: filme
   labels:
     app: jellyfin
 spec:
@@ -44,7 +44,7 @@ spec:
             requests:
               cpu: "500m"
               memory: "300M"
-          image: linuxserver/jellyfin:20200216-ls13
+          image: linuxserver/jellyfin:20200313-ls33
           ports:
             - containerPort: 8096
               protocol: TCP
@@ -70,3 +70,7 @@ spec:
         - name: videocard
           hostPath:
             path: /dev/dri
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: amd64
+        kubernetes.io/hostname: tedy-desktop-debian

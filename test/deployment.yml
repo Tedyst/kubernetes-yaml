@@ -30,3 +30,6 @@ spec:
           image: brndnmtthws/nginx-echo-headers
           ports:
             - containerPort: 8080
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: amd64

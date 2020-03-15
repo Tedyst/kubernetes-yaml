@@ -1,0 +1,14 @@
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: heimdall
+  namespace: tedy
+spec:
+  rules:
+    - host: apps.stoicatedy.ovh
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: heimdall
+              servicePort: 80

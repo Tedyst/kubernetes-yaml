@@ -1,0 +1,46 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: sonarr
+  namespace: filme
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: sonarr
+  template:
+    metadata:
+      labels:
+        k8s-app: sonarr
+    spec:
+      containers:
+        - name: sonarr
+          image: linuxserver/sonarr:latest
+          ports:
+            - containerPort: 8989
+          volumeMounts:
+            - mountPath: /config 
+              name: config
+            - mountPath: /tv 
+              name: tv
+            - mountPath: /downloads 
+              name: downloads
+          resources:
+            limits:
+              memory: "1000Mi"
+              cpu: "1000m"
+            requests:
+              memory: "500Mi"
+              cpu: "1000m"
+      volumes:
+        - name: downloads
+          hostPath:
+            path: /media/hddext4/K8s/qbittorrent/
+        - name: tv
+          hostPath:
+            path: /media/hddext4/jellyfin/media/TV/
+        - name: config
+          persistentVolumeClaim:
+            claimName: sonarr-config
+      nodeSelector:
+        "beta.kubernetes.io/os": linux

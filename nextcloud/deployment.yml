@@ -30,6 +30,10 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /var/www/html/
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: amd64
+        kubernetes.io/hostname: tedy-desktop-debian
       volumes:
         - name: data
           hostPath:

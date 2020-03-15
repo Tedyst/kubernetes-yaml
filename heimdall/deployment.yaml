@@ -1,0 +1,41 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: heimdall
+  namespace: tedy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: heimdall
+  template:
+    metadata:
+      labels:
+        k8s-app: heimdall
+    spec:
+      containers:
+        - name: heimdall
+          image: linuxserver/heimdall:latest
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: "50Mi"
+              cpu: "200m"
+            requests:
+              memory: "50Mi"
+              cpu: "50m"
+          volumeMounts:
+            - mountPath: /config
+              name: heimdall
+          env:
+            - name: APP_NAME
+              value: Apps
+            - name: APP_URL
+              value: "https://apps.stoicatedy.ovh"
+      volumes:
+        - name: heimdall
+          persistentVolumeClaim:
+              claimName: heimdall
+      nodeSelector:
+        "beta.kubernetes.io/os": linux

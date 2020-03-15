@@ -16,7 +16,8 @@ spec:
         app: gotify
     spec:
       nodeSelector:
-        beta.kubernetes.io/arch: arm
+        kubernetes.io/os: linux
+        kubernetes.io/arch: arm
       containers:
         - name: gotify
           resources:

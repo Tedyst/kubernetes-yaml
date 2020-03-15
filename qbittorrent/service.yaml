@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: qbittorrent
+  namespace: filme
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    k8s-app: qbittorrent
