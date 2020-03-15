@@ -4,7 +4,7 @@ metadata:
   labels:
     k8s-app: email-simplelogin
   name: email-simplelogin
-  namespace: tedy
+  namespace: email
 spec:
   replicas: 1
   revisionHistoryLimit: 3

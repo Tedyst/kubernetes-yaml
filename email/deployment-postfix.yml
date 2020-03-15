@@ -4,7 +4,7 @@ metadata:
   labels:
     k8s-app: email-postfix
   name: email-postfix
-  namespace: tedy
+  namespace: email
 spec:
   replicas: 1
   revisionHistoryLimit: 3

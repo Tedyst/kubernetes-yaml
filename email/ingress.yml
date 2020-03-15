@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: mail
-  namespace: tedy
+  namespace: email
   annotations:
     ingress.kubernetes.io/force-hsts: "true"
     ingress.kubernetes.io/ssl-redirect: "true"

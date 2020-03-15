@@ -2,7 +2,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: email-db
-  namespace: tedy
+  namespace: email
 spec:
   accessModes:
     - ReadWriteOnce
