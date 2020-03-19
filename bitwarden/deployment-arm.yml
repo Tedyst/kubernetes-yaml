@@ -6,7 +6,7 @@ metadata:
   name: bitwarden-arm
   namespace: tedy
 spec:
-  replicas: 0
+  replicas: 1
   revisionHistoryLimit: 0
   selector:
     matchLabels:
@@ -48,7 +48,7 @@ spec:
                   key: YUBICO_SECRET_KEY
                   name: bitwarden-secret
             - name: SIGNUPS_ALLOWED
-              value: "false"
+              value: "true"
             - name: SHOW_PASSWORD_HINT
               value: "false"
           volumeMounts:

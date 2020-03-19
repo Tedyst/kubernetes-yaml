@@ -34,4 +34,5 @@ spec:
               cpu: "50m"
 
       nodeSelector:
-        "beta.kubernetes.io/os": linux
+        kubernetes.io/os: linux
+        kubernetes.io/arch: arm
