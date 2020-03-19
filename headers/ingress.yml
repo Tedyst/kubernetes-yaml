@@ -5,7 +5,7 @@ metadata:
   namespace: nastasa
 spec:
   rules:
-    - host: headers-nastasa.stoicatedy.ovh
+    - host: headers.stoicatedy.ovh
       http:
         paths:
           - path: /

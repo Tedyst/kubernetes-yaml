@@ -1,28 +1,28 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: sonarr
+  name: radarr
   namespace: filme
 spec:
   replicas: 1
   selector:
     matchLabels:
-      k8s-app: sonarr
+      k8s-app: radarr
   template:
     metadata:
       labels:
-        k8s-app: sonarr
+        k8s-app: radarr
     spec:
       containers:
-        - name: sonarr
-          image: linuxserver/sonarr:latest
+        - name: radarr
+          image: linuxserver/radarr:latest
           ports:
-            - containerPort: 8989
+            - containerPort: 7878
           volumeMounts:
             - mountPath: /config 
               name: config
-            - mountPath: /tv 
-              name: tv
+            - mountPath: /movies
+              name: movies
             - mountPath: /downloads 
               name: downloads
           resources:
@@ -36,12 +36,12 @@ spec:
         - name: downloads
           hostPath:
             path: /media/hddext4/K8s/qbittorrent/
-        - name: tv
+        - name: movies
           hostPath:
-            path: /media/hddext4/jellyfin/media/TV/
+            path: /media/hddext4/jellyfin/media/Filme
         - name: config
           persistentVolumeClaim:
-            claimName: sonarr-config
+            claimName: radarr-config
       nodeSelector:
         kubernetes.io/os: linux
         kubernetes.io/arch: amd64

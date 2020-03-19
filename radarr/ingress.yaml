@@ -1,0 +1,14 @@
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: radarr
+  namespace: filme
+spec:
+  rules:
+    - host: radarr.stoicatedy.ovh
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: radarr
+              servicePort: 7878

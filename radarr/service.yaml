@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: radarr
+  namespace: filme
+spec:
+  ports:
+    - port: 7878
+      targetPort: 7878
+  selector:
+    k8s-app: radarr

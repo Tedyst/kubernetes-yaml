@@ -20,6 +20,7 @@ spec:
       nodeSelector:
         kubernetes.io/os: linux
         kubernetes.io/arch: amd64
+        kubernetes.io/hostname: tedy-desktop-debian
       containers:
         - name: bitwarden
           image: mprasil/bitwarden:latest
@@ -48,7 +49,7 @@ spec:
                   key: YUBICO_SECRET_KEY
                   name: bitwarden-secret
             - name: SIGNUPS_ALLOWED
-              value: "false"
+              value: "true"
             - name: SHOW_PASSWORD_HINT
               value: "false"
           volumeMounts:

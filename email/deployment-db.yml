@@ -43,6 +43,10 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: data
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: amd64
+        kubernetes.io/hostname: tedy-desktop-debian
       volumes:
         - name: data
           persistentVolumeClaim:

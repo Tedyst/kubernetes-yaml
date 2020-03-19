@@ -45,6 +45,10 @@ spec:
             - mountPath: /etc/postfix/sasl_passwd
               name: data
               subPath: sasl_passwd
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: amd64
+        kubernetes.io/hostname: tedy-desktop-debian
       volumes:
         - name: data
           configMap:
