@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: musicbot
+  namespace: tedy
+  labels:
+    app: musicbot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: musicbot
+  template:
+    metadata:
+      labels:
+        app: musicbot
+    spec:
+      containers:
+        - name: musicbot
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "300M"
+            requests:
+              cpu: "100m"
+              memory: "100M"
+          image: tedyst/musicbot:latest
+          volumeMounts:
+            - name: config-volume
+              mountPath: /usr/src/musicbot/config/options.ini
+              subPath: options.ini
+            - name: config-volume
+              mountPath: /usr/src/musicbot/config/permissions.ini
+              subPath: permissions.ini
+      volumes:
+        - name: config-volume
+          secret:
+            secretName: musicbot
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: arm

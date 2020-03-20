@@ -3,9 +3,7 @@ apiVersion: v1
 metadata:
   name: email-db
   namespace: email
-spec:
-  accessModes:
-    - ReadWriteOnce
+spec:s
   resources:
     requests:
       storage: 300Mi
