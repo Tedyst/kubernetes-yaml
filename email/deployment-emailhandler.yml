@@ -19,7 +19,7 @@ spec:
       terminationGracePeriodSeconds: 2
       containers:
         - name: simplelogin
-          image: simplelogin/app:2.0.0
+          image: tedyst/simplelogin
           resources:
             limits:
               memory: "300Mi"
@@ -66,7 +66,7 @@ spec:
               mountPath: /secret
       nodeSelector:
         kubernetes.io/os: linux
-        kubernetes.io/arch: amd64
+        kubernetes.io/arch: arm
       volumes:
         - name: data
           secret:
