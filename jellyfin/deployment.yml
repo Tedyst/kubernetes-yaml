@@ -39,12 +39,12 @@ spec:
                   fieldPath: metadata.namespace
           resources:
             limits:
-              cpu: "3000m"
+              cpu: "8000m"
               memory: "300M"
             requests:
               cpu: "500m"
               memory: "300M"
-          image: linuxserver/jellyfin:20200313-ls33
+          image: linuxserver/jellyfin:v10.5.2-ls41
           ports:
             - containerPort: 8096
               protocol: TCP

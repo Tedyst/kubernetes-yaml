@@ -16,7 +16,7 @@ spec:
       labels:
         k8s-app: autotip
     spec:
-      terminationGracePeriodSeconds: 2
+      terminationGracePeriodSeconds: 0
       containers:
         - name: autotip
           image: tedyst/node-autotip:latest
