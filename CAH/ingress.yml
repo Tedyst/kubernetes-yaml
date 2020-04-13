@@ -1,14 +1,14 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: headers-ingress
-  namespace: tedy
+  name: ingress
+  namespace: cah
 spec:
   rules:
-    - host: headers.stoicatedy.ovh
+    - host: cah.stoicatedy.ovh
       http:
         paths:
           - path: /
             backend:
-              serviceName: headers-service
+              serviceName: client
               servicePort: 8080

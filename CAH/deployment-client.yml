@@ -1,33 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: headers
-  namespace: tedy
+  name: client
+  namespace: cah
   labels:
-    app: headers
+    app: client
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app: headers
+      app: client
   template:
     metadata:
       labels:
-        app: headers
+        app: client
     spec:
       terminationGracePeriodSeconds: 0
       containers:
-        - name: headers
+        - name: client
           resources:
             limits:
-              cpu: "100m"
-              memory: "30M"
+              cpu: "1000m"
+              memory: "300M"
             requests:
-              cpu: "50m"
-              memory: "30M"
-          image: brndnmtthws/nginx-echo-headers
+              cpu: "500m"
+              memory: "300M"
+          image: massivedecks/client
           ports:
             - containerPort: 8080
       nodeSelector:

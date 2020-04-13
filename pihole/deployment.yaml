@@ -28,9 +28,6 @@ spec:
           ports:
             - containerPort: 53
               hostPort: 53
-              protocol: TCP
-            - containerPort: 53
-              hostPort: 53
               protocol: UDP
             - containerPort: 67
               hostPort: 67
@@ -42,7 +39,7 @@ spec:
             - name: TZ
               value: "Europe/Bucharest"
             - name: ServerIP
-              value: "192.168.1.21"
+              value: "192.168.10.21"
             - name: VIRTUAL_HOST
               value: "pihole.stoicatedy.ovh"
           volumeMounts:

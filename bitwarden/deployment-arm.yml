@@ -22,7 +22,7 @@ spec:
         kubernetes.io/arch: arm
       containers:
         - name: bitwarden
-          image: mprasil/bitwarden:armv6
+          image: bitwardenrs/server:1.14.2-raspberry
           resources:
             limits:
               memory: "50Mi"
