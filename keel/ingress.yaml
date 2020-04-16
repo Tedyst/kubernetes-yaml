@@ -1,0 +1,14 @@
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: keel
+  namespace: kube-system
+spec:
+  rules:
+    - host: keel.stoicatedy.ovh
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: keel
+              servicePort: keel
