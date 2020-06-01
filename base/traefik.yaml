@@ -24,6 +24,6 @@ spec:
     externalTrafficPolicy: ""
     deployment.hostPort.httpsEnabled: "true"
     deployment.hostPort.httpEnabled: "true"
-    deployment.hostPort.httpsPort: "444"
-    deployment.hostPort.httpPort: "81"
+    deployment.hostPort.httpsPort: "8081"
+    deployment.hostPort.httpPort: "8080"
 

@@ -1,0 +1,14 @@
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: spotifyutils
+  namespace: tedy
+spec:
+  rules:
+    - host: spotify.stoicatedy.ovh
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: spotifyutils
+              servicePort: 5000

@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: spotifyutils
+  namespace: tedy
+spec:
+  ports:
+    - port: 5000
+      targetPort: 5000
+  selector:
+    k8s-app: spotifyutils

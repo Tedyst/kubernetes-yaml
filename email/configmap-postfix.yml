@@ -78,7 +78,7 @@ data:
       permit
   pgsql-relay-domains.cf: |
     # postgres config
-    hosts = 10.43.72.200
+    hosts = 10.43.51.78
     user = myuser
     password = mypassword
     dbname = simplelogin
@@ -87,13 +87,13 @@ data:
         UNION SELECT '%s' WHERE '%s' = 'stoicatedy.ovh' LIMIT 1;
   pgsql-transport-maps.cf: |
     # postgres config
-    hosts = 10.43.72.200
+    hosts = 10.43.51.78
     user = myuser
     password = mypassword
     dbname = simplelogin
 
-    # forward to smtp:10.43.153.72:20381 for custom domain AND email domain
-    query = SELECT 'smtp:10.43.153.72:20381' FROM custom_domain WHERE domain = '%s' AND verified=true 
-        UNION SELECT 'smtp:10.43.153.72:20381' WHERE '%s' = 'stoicatedy.ovh' LIMIT 1;
+    # forward to smtp:10.43.122.159:20381 for custom domain AND email domain
+    query = SELECT 'smtp:10.43.122.159:20381' FROM custom_domain WHERE domain = '%s' AND verified=true 
+        UNION SELECT 'smtp:10.43.122.159:20381' WHERE '%s' = 'stoicatedy.ovh' LIMIT 1;
   sasl_passwd: |
     [smtp.gmail.com]:587 username@gmail.com:password
