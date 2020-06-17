@@ -18,6 +18,20 @@ spec:
         app: spotifyutils
     spec:
       terminationGracePeriodSeconds: 0
+      initContainers:
+        - name: spotifyutils-init
+          resources:
+            limits:
+              cpu: "2000m"
+              memory: "300M"
+            requests:
+              cpu: "200m"
+              memory: "300M"
+          image: tedyst/spotifyutils:latest
+          command: ["flask", "db", "upgrade"]
+          volumeMounts:
+            - mountPath: /data
+              name: data
       containers:
         - name: spotifyutils
           resources:
@@ -30,6 +44,9 @@ spec:
           image: tedyst/spotifyutils:latest
           ports:
             - containerPort: 5000
+          volumeMounts:
+            - mountPath: /data
+              name: data
           env:
             - name: SECRET_KEY
               valueFrom:
@@ -51,6 +68,10 @@ spec:
                 secretKeyRef:
                   name: spotifyutils-secret
                   key: GENIUSTOKEN
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: spotifyutils
       nodeSelector:
         kubernetes.io/os: linux
         kubernetes.io/arch: arm

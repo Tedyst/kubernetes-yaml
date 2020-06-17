@@ -8,4 +8,4 @@ spec:
     - port: 5000
       targetPort: 5000
   selector:
-    k8s-app: spotifyutils
+    app: spotifyutils
