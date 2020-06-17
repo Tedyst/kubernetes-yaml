@@ -50,6 +50,7 @@ spec:
       restartPolicy: Always
       securityContext: {}
       terminationGracePeriodSeconds: 30
+      serviceAccountName: prometheus
       volumes:
       - name: config-volume
         configMap:
