@@ -27,7 +27,7 @@ data:
       scheme: http
       static_configs:
       - targets:
-        - 192.168.10.108:8000
+        - hypixelmonitor.tedy:8000
     - job_name: openvpn
       metrics_path: /metrics
       scheme: http
