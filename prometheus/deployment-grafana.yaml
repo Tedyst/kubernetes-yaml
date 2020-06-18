@@ -42,3 +42,6 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: grafana
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: arm

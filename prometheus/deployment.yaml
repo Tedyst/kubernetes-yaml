@@ -30,6 +30,7 @@ spec:
         args:
           - '--storage.tsdb.path=/prometheus'
           - '--config.file=/etc/prometheus/prometheus.yml'
+          - '--web.enable-admin-api'
         command:
         - /bin/prometheus
         ports:
@@ -58,3 +59,6 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: prometheus
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: arm
