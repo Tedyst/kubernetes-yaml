@@ -9,3 +9,15 @@ spec:
   resources:
     requests:
       storage: 3000Mi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 300Mi
