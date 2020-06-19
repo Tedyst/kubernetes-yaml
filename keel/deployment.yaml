@@ -83,12 +83,6 @@ spec:
               value: "true"
           ports:
             - containerPort: 9300
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: 9300
-            initialDelaySeconds: 30
-            timeoutSeconds: 10
           resources:
             limits:
               cpu: 100m

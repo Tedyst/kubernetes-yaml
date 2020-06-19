@@ -55,13 +55,6 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /data
-          livenessProbe:
-            httpGet:
-              scheme: HTTP
-              path: /
-              port: 80
-            initialDelaySeconds: 5
-            timeoutSeconds: 30
       volumes:
         - name: data
           persistentVolumeClaim:
