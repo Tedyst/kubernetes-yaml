@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: samba
+  namespace: tedy
+  labels:
+    app: samba
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: samba
+  template:
+    metadata:
+      labels:
+        app: samba
+    spec:
+      terminationGracePeriodSeconds: 0
+      hostNetwork: true
+      containers:
+        - name: samba
+          args:
+            - -n
+            - -p
+            - -u
+            - "tedy;tedy"
+            - -s
+            - "data;/data;yes;no;yes"
+          resources:
+            limits:
+              cpu: "2000m"
+              memory: "300M"
+            requests:
+              cpu: "200m"
+              memory: "300M"
+          image: dperson/samba:latest
+          ports:
+            - containerPort: 139
+              hostPort: 139
+            - containerPort: 445
+              hostPort: 445
+            - containerPort: 137
+              hostPort: 137
+              protocol: "UDP"
+            - containerPort: 138
+              hostPort: 138
+              protocol: "UDP"
+          volumeMounts:
+            - mountPath: /data
+              name: data
+      volumes:
+        - name: data
+          hostPath:
+            path: /var/lib/rancher/NFS
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: arm
+        kubernetes.io/hostname: tedy-raspberry
