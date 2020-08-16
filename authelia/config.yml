@@ -6,7 +6,7 @@ metadata:
 data:
   configuration.yml: |-
     port: 10001
-    logs_level: debug
+    log_level: debug
     jwt_secret: some_secret
     default_redirection_url: https://stoicatedy.ovh
     authentication_backend:

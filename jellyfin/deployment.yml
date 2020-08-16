@@ -38,13 +38,10 @@ spec:
                   apiVersion: v1
                   fieldPath: metadata.namespace
           resources:
-            limits:
-              cpu: "8000m"
-              memory: "300M"
             requests:
               cpu: "500m"
               memory: "300M"
-          image: linuxserver/jellyfin:v10.5.2-ls41
+          image: linuxserver/jellyfin:10.6.0-2-ls63
           ports:
             - containerPort: 8096
               protocol: TCP
@@ -54,23 +51,26 @@ spec:
           volumeMounts:
             - name: config-volume
               mountPath: /config
-            - name: media-volume
-              mountPath: /media
-            - name: videocard
-              mountPath: /dev/dri
+            - name: filme
+              mountPath: /mnt/hddext4/Filme
+            - name: seriale
+              mountPath: /mnt/hddext4/Seriale
           securityContext:
             privileged: true
       volumes:
         - name: config-volume
           hostPath:
-            path: /media/hddext4/jellyfin/config
-        - name: media-volume
+            path: /mnt/hddext4/jellyfin/config
+        - name: filme
           hostPath:
-            path: /media/hddext4/jellyfin/media
+            path: /mnt/hddext4/Filme
+        - name: seriale
+          hostPath:
+            path: /mnt/hddext4/Seriale
         - name: videocard
           hostPath:
             path: /dev/dri
       nodeSelector:
         kubernetes.io/os: linux
         kubernetes.io/arch: amd64
-        kubernetes.io/hostname: tedy-desktop-debian
+        kubernetes.io/hostname: tedy-desktop

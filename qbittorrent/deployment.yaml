@@ -35,9 +35,6 @@ spec:
             - mountPath: /downloads
               name: downloads
           resources:
-            limits:
-              memory: "400Mi"
-              cpu: "500m"
             requests:
               memory: "100Mi"
               cpu: "100m"
@@ -47,9 +44,9 @@ spec:
             claimName: qbittorrent-config
         - name: downloads
           hostPath:
-            path: /media/hddext4/K8s/qbittorrent/
+            path: /mnt/hddext4/qbittorrent/
       terminationGracePeriodSeconds: 0
       nodeSelector:
         kubernetes.io/os: linux
         kubernetes.io/arch: amd64
-        kubernetes.io/hostname: tedy-desktop-debian
+        kubernetes.io/hostname: tedy-desktop

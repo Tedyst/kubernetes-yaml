@@ -1,30 +1,26 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: sonarr
+  name: ombi
   namespace: filme
 spec:
   replicas: 1
   selector:
     matchLabels:
-      k8s-app: sonarr
+      k8s-app: ombi
   template:
     metadata:
       labels:
-        k8s-app: sonarr
+        k8s-app: ombi
     spec:
       containers:
-        - name: sonarr
-          image: linuxserver/sonarr:latest
+        - name: ombi
+          image: linuxserver/ombi:latest
           ports:
-            - containerPort: 8989
+            - containerPort: 3579
           volumeMounts:
             - mountPath: /config 
               name: config
-            - mountPath: /tv 
-              name: tv
-            - mountPath: /downloads 
-              name: downloads
           resources:
             limits:
               memory: "1000Mi"
@@ -33,15 +29,9 @@ spec:
               memory: "500Mi"
               cpu: "1000m"
       volumes:
-        - name: downloads
-          hostPath:
-            path: /mnt/hddext4/qbittorrent/
-        - name: tv
-          hostPath:
-            path: /mnt/hddext4/Seriale
         - name: config
           persistentVolumeClaim:
-            claimName: sonarr-config
+            claimName: ombi-config
       nodeSelector:
         kubernetes.io/os: linux
         kubernetes.io/arch: amd64

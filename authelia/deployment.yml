@@ -18,7 +18,7 @@ spec:
       containers:
         - name: authelia
           resources:
-            limits:
+            requests:
               cpu: "50m"
               memory: "30M"
           image: authelia/authelia:master
@@ -27,7 +27,7 @@ spec:
             - containerPort: 10001
           volumeMounts:
             - name: config-volume
-              mountPath: /etc/authelia
+              mountPath: /config
             - name: secret-volume
               mountPath: /secret
             - name: storage-volume

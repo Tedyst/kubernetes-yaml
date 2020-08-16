@@ -26,23 +26,20 @@ spec:
             - mountPath: /downloads 
               name: downloads
           resources:
-            limits:
-              memory: "1000Mi"
-              cpu: "1000m"
             requests:
               memory: "500Mi"
               cpu: "1000m"
       volumes:
         - name: downloads
           hostPath:
-            path: /media/hddext4/K8s/qbittorrent/
+            path: /mnt/hddext4/qbittorrent
         - name: movies
           hostPath:
-            path: /media/hddext4/jellyfin/media/Filme
+            path: /mnt/hddext4/Filme
         - name: config
           persistentVolumeClaim:
             claimName: radarr-config
       nodeSelector:
         kubernetes.io/os: linux
         kubernetes.io/arch: amd64
-        kubernetes.io/hostname: tedy-desktop-debian
+        kubernetes.io/hostname: tedy-desktop
