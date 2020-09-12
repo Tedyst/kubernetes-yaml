@@ -19,7 +19,7 @@ spec:
       terminationGracePeriodSeconds: 2
       containers:
         - name: simplelogin
-          image: tedyst/simplelogin
+          image: ghcr.io/tedyst/simplelogin
           resources:
             limits:
               memory: "300Mi"

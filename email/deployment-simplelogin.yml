@@ -19,7 +19,7 @@ spec:
       terminationGracePeriodSeconds: 2
       initContainers:
         - name: simplelogin-migrate
-          image: tedyst/simplelogin
+          image: ghcr.io/tedyst/simplelogin
           command: ['flask']
           args: ['db', 'upgrade']
           env:
