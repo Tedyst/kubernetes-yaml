@@ -24,7 +24,7 @@ spec:
             requests:
               cpu: "100m"
               memory: "100M"
-          image: tedyst/musicbot:latest
+          image: ghcr.io/tedyst/musicbot:latest
           volumeMounts:
             - name: config-volume
               mountPath: /usr/src/musicbot/config/options.ini
