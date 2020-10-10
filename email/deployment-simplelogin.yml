@@ -74,7 +74,7 @@ spec:
             - name: EMAIL_SERVERS_WITH_PRIORITY
               value: "[(10, \"stoicatedy.ovh.\")]"
             - name: POSTFIX_SERVER
-              value: "smtp.rdslink.ro"
+              value: "email-postfix"
             - name: DISABLE_ALIAS_SUFFIX
               value: "1"
             # - name: DISABLE_REGISTRATION

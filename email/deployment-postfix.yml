@@ -45,6 +45,8 @@ spec:
             - mountPath: /etc/postfix/sasl_passwd
               name: data
               subPath: sasl_passwd
+            - mountPath: /ssl
+              name: ssl
       nodeSelector:
         kubernetes.io/os: linux
         kubernetes.io/arch: arm
@@ -52,3 +54,6 @@ spec:
         - name: data
           configMap:
             name: email-postfix
+        - name: ssl
+          secret:
+            secretName: email-certificate-stoicatedy-ovh

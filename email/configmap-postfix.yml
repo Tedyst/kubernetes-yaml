@@ -24,11 +24,12 @@ data:
     compatibility_level = 2
 
     # TLS parameters
-    smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
-    smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+    smtpd_tls_cert_file=/ssl/tls.crt
+    smtpd_tls_key_file=/ssl/tls.key
     smtpd_use_tls=yes
     smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
     smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+    smtp_tls_security_level=may
 
     # See /usr/share/doc/postfix/TLS_README.gz in the postfix-doc package for
     # information on enabling SSL in the smtp client.
@@ -41,11 +42,10 @@ data:
     mydomain = stoicatedy.ovh
     myorigin = stoicatedy.ovh
 
-    relayhost = smtp.rdslink.ro
-    smtp_sasl_auth_enable = yes
-    smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
-    smtp_sasl_security_options = 
-
+    # relayhost = smtp.rdslink.ro
+    # smtp_sasl_auth_enable = yes
+    # smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+    # smtp_sasl_security_options = 
 
     relay_domains = pgsql:/etc/postfix/pgsql-relay-domains.cf
     transport_maps = pgsql:/etc/postfix/pgsql-transport-maps.cf
