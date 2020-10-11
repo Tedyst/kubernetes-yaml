@@ -200,21 +200,13 @@ spec:
             - --entrypoints.websecure.address=:443
             - --providers.kubernetescrd
             - --log
-            - --log.level=DEBUG
+            - --log.level=INFO
           ports:
             - name: web
               containerPort: 80
               hostPort: 8080
             - name: websecure
               containerPort: 443
-              hostPort: 8081
-          volumeMounts:
-            - mountPath: /certificates/stoicatedy.ovh
-              name: stoicatedy-ovh
-      volumes:
-        - name: stoicatedy-ovh
-          secret:
-            secretName: certificate-stoicatedy-ovh
       nodeSelector:
         kubernetes.io/os: linux
         kubernetes.io/arch: arm
@@ -246,23 +238,3 @@ spec:
     - name: hsts-header
   tls:
     secretName: certificate-stoicatedy-ovh
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: certificate-stoicatedy-ovh
-  namespace: tedy
-spec:
-  secretName: certificate-stoicatedy-ovh
-  commonName: stoicatedy.ovh
-  usages:
-    - server auth
-    - client auth
-    - digital signature
-    - any
-  dnsNames:
-    - "stoicatedy.ovh"
-    - "*.stoicatedy.ovh"
-  issuerRef:
-    name: letsencrypt
-    kind: ClusterIssuer
