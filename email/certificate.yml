@@ -1,0 +1,19 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: email-certificate-stoicatedy-ovh
+  namespace: email
+spec:
+  secretName: email-certificate-stoicatedy-ovh
+  commonName: stoicatedy.ovh
+  usages:
+    - server auth
+    - client auth
+    - digital signature
+    - any
+  dnsNames:
+    - "stoicatedy.ovh"
+    - "*.stoicatedy.ovh"
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer

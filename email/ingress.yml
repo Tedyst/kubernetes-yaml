@@ -1,18 +1,36 @@
-apiVersion: extensions/v1beta1
-kind: Ingress
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
-  name: mail
+  name: email-ingress
   namespace: email
-  annotations:
-    ingress.kubernetes.io/force-hsts: "true"
-    ingress.kubernetes.io/ssl-redirect: "true"
-    ingress.kubernetes.io/ssl-force-host: "true"
 spec:
-  rules:
-    - host: mail.stoicatedy.ovh
-      http:
-        paths:
-          - backend:
-              serviceName: email-simplelogin
-              servicePort: 7777
-            path: /
+  routes:
+    - match: Host(`mail.stoicatedy.ovh`)
+      kind: Rule
+      services:
+        - name: email-simplelogin
+          port: 7777
+  middlewares:
+    - name: hsts-header
+  tls:
+    secretName: certificate-stoicatedy-ovh
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate-stoicatedy-ovh
+  namespace: email
+spec:
+  secretName: certificate-stoicatedy-ovh
+  commonName: stoicatedy.ovh
+  usages:
+    - server auth
+    - client auth
+    - digital signature
+    - any
+  dnsNames:
+    - "stoicatedy.ovh"
+    - "*.stoicatedy.ovh"
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer

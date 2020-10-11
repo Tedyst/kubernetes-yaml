@@ -1,14 +1,36 @@
-kind: Ingress
-apiVersion: extensions/v1beta1
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
-  name: spotifyutils
+  name: spotify-ingress
   namespace: tedy
 spec:
-  rules:
-    - host: spotify.stoicatedy.ovh
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: spotifyutils
-              servicePort: 5000
+  routes:
+    - match: Host(`spotify.stoicatedy.ovh`)
+      kind: Rule
+      services:
+        - name: spotifyutils
+          port: 5000
+  middlewares:
+    - name: hsts-header
+  tls:
+    secretName: certificate-stoicatedy-ovh
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate-stoicatedy-ovh
+  namespace: tedy
+spec:
+  secretName: certificate-stoicatedy-ovh
+  commonName: stoicatedy.ovh
+  usages:
+    - server auth
+    - client auth
+    - digital signature
+    - any
+  dnsNames:
+    - "stoicatedy.ovh"
+    - "*.stoicatedy.ovh"
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer

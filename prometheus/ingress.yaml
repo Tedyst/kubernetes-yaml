@@ -1,14 +1,36 @@
-apiVersion: extensions/v1beta1
-kind: Ingress
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
-  name: grafana
+  name: grafana-ingress
   namespace: monitoring
 spec:
-  rules:
-    - host: grafana.stoicatedy.ovh
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: grafana
-              servicePort: 3000
+  routes:
+    - match: Host(`grafana.stoicatedy.ovh`)
+      kind: Rule
+      services:
+        - name: grafana
+          port: 3000
+  middlewares:
+    - name: hsts-header
+  tls:
+    secretName: certificate-stoicatedy-ovh
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate-stoicatedy-ovh
+  namespace: monitoring
+spec:
+  secretName: certificate-stoicatedy-ovh
+  commonName: stoicatedy.ovh
+  usages:
+    - server auth
+    - client auth
+    - digital signature
+    - any
+  dnsNames:
+    - "stoicatedy.ovh"
+    - "*.stoicatedy.ovh"
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer

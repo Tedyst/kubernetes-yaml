@@ -10,35 +10,15 @@ spec:
     privateKeySecretRef:
       name: certificate-acme
     solvers:
-    - dns01:
-        cloudflare:
-          email: stoicatedy@gmail.com
-          apiKeySecretRef:
-            name: cloudflare-apikey-secret
-            key: API_KEY
-      selector:
-        dnsZones:
-        - 'stoicatedy.ovh'
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: email-certificate-stoicatedy-ovh
-  namespace: email
-spec:
-  secretName: email-certificate-stoicatedy-ovh
-  commonName: stoicatedy.ovh
-  usages:
-    - server auth
-    - client auth
-    - digital signature
-    - any
-  dnsNames:
-  - "stoicatedy.ovh"
-  - "*.stoicatedy.ovh"
-  issuerRef:
-    name: letsencrypt
-    kind: ClusterIssuer
+      - dns01:
+          cloudflare:
+            email: stoicatedy@gmail.com
+            apiKeySecretRef:
+              name: cloudflare-apikey-secret
+              key: API_KEY
+        selector:
+          dnsZones:
+            - "stoicatedy.ovh"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -54,8 +34,8 @@ spec:
     - digital signature
     - any
   dnsNames:
-  - "stoicatedy.ovh"
-  - "*.stoicatedy.ovh"
+    - "stoicatedy.ovh"
+    - "*.stoicatedy.ovh"
   issuerRef:
     name: letsencrypt
     kind: ClusterIssuer

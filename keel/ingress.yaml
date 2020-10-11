@@ -1,14 +1,36 @@
-kind: Ingress
-apiVersion: extensions/v1beta1
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
-  name: keel
+  name: keel-ingress
   namespace: kube-system
 spec:
-  rules:
-    - host: keel.stoicatedy.ovh
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: keel
-              servicePort: keel
+  routes:
+    - match: Host(`keel.stoicatedy.ovh`)
+      kind: Rule
+      services:
+        - name: keel
+          port: 9300
+  middlewares:
+    - name: hsts-header
+  tls:
+    secretName: certificate-stoicatedy-ovh
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate-stoicatedy-ovh
+  namespace: kube-system
+spec:
+  secretName: certificate-stoicatedy-ovh
+  commonName: stoicatedy.ovh
+  usages:
+    - server auth
+    - client auth
+    - digital signature
+    - any
+  dnsNames:
+    - "stoicatedy.ovh"
+    - "*.stoicatedy.ovh"
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer

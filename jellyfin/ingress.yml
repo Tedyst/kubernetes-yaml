@@ -1,14 +1,36 @@
-apiVersion: extensions/v1beta1
-kind: Ingress
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
   name: jellyfin-ingress
   namespace: filme
 spec:
-  rules:
-    - host: jellyfin.stoicatedy.ovh
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: jellyfin-service
-              servicePort: 8096
+  routes:
+    - match: Host(`jellyfin.stoicatedy.ovh`)
+      kind: Rule
+      services:
+        - name: jellyfin-service
+          port: 8096
+  middlewares:
+    - name: hsts-header
+  tls:
+    secretName: certificate-stoicatedy-ovh
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate-stoicatedy-ovh
+  namespace: filme
+spec:
+  secretName: certificate-stoicatedy-ovh
+  commonName: stoicatedy.ovh
+  usages:
+    - server auth
+    - client auth
+    - digital signature
+    - any
+  dnsNames:
+    - "stoicatedy.ovh"
+    - "*.stoicatedy.ovh"
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
