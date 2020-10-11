@@ -3,7 +3,7 @@ apiVersion: apps/v1
 metadata:
   labels:
     k8s-app: bitwarden
-  name: bitwarden-arm
+  name: bitwarden
   namespace: tedy
 spec:
   replicas: 1
