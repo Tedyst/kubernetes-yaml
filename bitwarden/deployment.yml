@@ -3,10 +3,10 @@ apiVersion: apps/v1
 metadata:
   labels:
     k8s-app: bitwarden
-  name: bitwarden-amd64
+  name: bitwarden-arm
   namespace: tedy
 spec:
-  replicas: 0
+  replicas: 1
   revisionHistoryLimit: 0
   selector:
     matchLabels:
@@ -19,15 +19,14 @@ spec:
       terminationGracePeriodSeconds: 2
       nodeSelector:
         kubernetes.io/os: linux
-        kubernetes.io/arch: amd64
-        kubernetes.io/hostname: tedy-desktop-debian
+        kubernetes.io/arch: arm
       containers:
         - name: bitwarden
-          image: bitwardenrs/server:1.14.2
+          image: bitwardenrs/server:latest
           resources:
             limits:
-              memory: "50Mi"
-              cpu: "50m"
+              memory: "100Mi"
+              cpu: "100m"
           ports:
             - containerPort: 80
               protocol: TCP
@@ -47,6 +46,11 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: YUBICO_SECRET_KEY
+                  name: bitwarden-secret
+            - name: ADMIN_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: ADMIN_TOKEN
                   name: bitwarden-secret
             - name: SIGNUPS_ALLOWED
               value: "true"
