@@ -19,6 +19,7 @@ spec:
         selector:
           dnsZones:
             - "stoicatedy.ovh"
+            - "stefannastasa.cf"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate

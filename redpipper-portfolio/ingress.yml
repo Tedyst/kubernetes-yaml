@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nastasasite-ingress
+  namespace: tedy
+spec:
+  routes:
+    - match: Host(`stefannastasa.cf`)
+      kind: Rule
+      services:
+        - name: nastasasite
+          port: 5000
+  middlewares:
+    - name: hsts-header

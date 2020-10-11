@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nastasasite
+  namespace: tedy
+spec:
+  selector:
+    app: nastasasite
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
