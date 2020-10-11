@@ -6,3 +6,5 @@ secret*
 *.crt
 *.csr
 nastasa-k8s-config
+.gitsecret/keys/random_seed
+!*.secret
