@@ -41,7 +41,7 @@ spec:
             requests:
               cpu: "500m"
               memory: "300M"
-          image: linuxserver/jellyfin:10.6.0-2-ls63
+          image: linuxserver/jellyfin:latest
           ports:
             - containerPort: 8096
               protocol: TCP
