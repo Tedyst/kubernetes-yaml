@@ -28,7 +28,7 @@ spec:
             limits:
               cpu: "50m"
               memory: "30M"
-          image: ghcr.io/Tedyst/opentracker:latest
+          image: ghcr.io/tedyst/opentracker:latest
           ports:
             - containerPort: 6969
               protocol: TCP
