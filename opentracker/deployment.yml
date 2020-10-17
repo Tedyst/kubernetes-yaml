@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opentracker
+  namespace: filme
+  labels:
+    app: opentracker
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: opentracker
+  template:
+    metadata:
+      labels:
+        app: opentracker
+    spec:
+      terminationGracePeriodSeconds: 0
+      hostNetwork: true
+      containers:
+        - name: opentracker
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "30M"
+            limits:
+              cpu: "50m"
+              memory: "30M"
+          image: ghcr.io/Tedyst/opentracker:latest
+          ports:
+            - containerPort: 6969
+              protocol: TCP
+              hostPort: 6969
+            - containerPort: 6969
+              hostPort: 6969
+              protocol: UDP
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: arm
