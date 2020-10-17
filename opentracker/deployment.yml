@@ -29,6 +29,7 @@ spec:
               cpu: "50m"
               memory: "30M"
           image: ghcr.io/tedyst/opentracker:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 6969
               protocol: TCP
