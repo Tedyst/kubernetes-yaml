@@ -24,7 +24,7 @@ spec:
             requests:
               cpu: "100m"
               memory: "100M"
-          image: linuxserver/jackett:v0.16.891-ls9
+          image: linuxserver/jackett:latest
           ports:
             - containerPort: 9117
               protocol: TCP

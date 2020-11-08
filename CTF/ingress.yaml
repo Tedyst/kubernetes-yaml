@@ -1,0 +1,29 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ctf-web
+  namespace: tedy
+spec:
+  routes:
+    - match: Host(`ctf.stoicatedy.ovh`) && PathPrefix(`/`)
+      kind: Rule
+      services:
+        - name: ctf-web
+          port: 80
+  tls:
+    secretName: certificate-stoicatedy-ovh
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ctf-shell
+  namespace: tedy
+spec:
+  routes:
+    - match: Host(`ctf-shell.stoicatedy.ovh`) && PathPrefix(`/`)
+      kind: Rule
+      services:
+        - name: ctf-shell
+          port: 80
+  tls:
+    secretName: certificate-stoicatedy-ovh
