@@ -1,0 +1,21 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: drop
+  namespace: tedy
+spec:
+  routes:
+    - match: Host(`drop.stoicatedy.ovh`) && PathPrefix(`/`)
+      kind: Rule
+      services:
+        - name: drop-web
+          port: 80
+    - match: Host(`drop.stoicatedy.ovh`) && PathPrefix(`/ws`)
+      kind: Rule
+      services:
+        - name: drop-ws
+          port: 5000
+  middlewares:
+    - name: hsts-header
+  tls:
+    secretName: certificate-stoicatedy-ovh

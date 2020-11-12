@@ -1,0 +1,45 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    k8s-app: drop-ws
+  name: drop-ws
+  namespace: tedy
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      k8s-app: drop-ws
+  template:
+    metadata:
+      labels:
+        k8s-app: drop-ws
+    spec:
+      terminationGracePeriodSeconds: 2
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: arm
+      containers:
+        - name: drop-ws
+          image: ghcr.io/tedyst/filedrop-ws:latest
+          resources:
+            limits:
+              memory: "40Mi"
+              cpu: "40m"
+          env:
+            - name: TURN_CREDENTIAL
+              value: filedrop
+            - name: TURN_USERNAME
+              value: filedrop
+            - name: TURN_SERVER
+              value: turn:drop.stoicatedy.ovh
+            - name: TURN_MODE
+              value: hmac
+            - name: WS_BEHIND_PROXY
+              value: "yes"
+            - name: WS_HOST
+              value: "0.0.0.0"
+          ports:
+            - containerPort: 5000
+              protocol: TCP

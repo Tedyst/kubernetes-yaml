@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: drop-web
+  namespace: tedy
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+  selector:
+    k8s-app: drop-web
+  type: ClusterIP
