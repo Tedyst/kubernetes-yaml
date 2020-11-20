@@ -207,6 +207,7 @@ spec:
               containerPort: 80
               hostPort: 8080
             - name: websecure
+              hostPort: 8081
               containerPort: 443
       nodeSelector:
         kubernetes.io/os: linux
@@ -239,3 +240,23 @@ spec:
     - name: hsts-header
   tls:
     secretName: certificate-stoicatedy-ovh
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate-stoicatedy-ovh
+  namespace: tedy
+spec:
+  secretName: certificate-stoicatedy-ovh
+  commonName: stoicatedy.ovh
+  usages:
+    - server auth
+    - client auth
+    - digital signature
+    - any
+  dnsNames:
+    - "stoicatedy.ovh"
+    - "*.stoicatedy.ovh"
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
