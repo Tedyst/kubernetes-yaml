@@ -22,8 +22,8 @@ spec:
           image: ghcr.io/tedyst/simplelogin
           resources:
             limits:
-              memory: "300Mi"
-              cpu: "100m"
+              memory: "150Mi"
+              cpu: "50m"
           command: ["python"]
           args: ["email_handler.py"]
           ports:

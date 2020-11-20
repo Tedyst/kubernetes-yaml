@@ -54,10 +54,7 @@ spec:
           image: tedyst/simplelogin
           resources:
             limits:
-              memory: "300Mi"
-              cpu: "1000m"
-            requests:
-              memory: "300Mi"
+              memory: "250Mi"
               cpu: "100m"
           ports:
             - containerPort: 7777

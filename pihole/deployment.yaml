@@ -49,11 +49,8 @@ spec:
               name: dnsmasq
           resources:
             limits:
-              memory: "1000Mi"
-              cpu: "200m"
-            requests:
-              memory: "500Mi"
-              cpu: "100m"
+              memory: "120Mi"
+              cpu: "50m"
       volumes:
         - name: pihole
           persistentVolumeClaim:

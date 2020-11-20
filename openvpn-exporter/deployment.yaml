@@ -29,11 +29,11 @@ spec:
               name: openvpn-exporter
           resources:
             limits:
-              memory: "50Mi"
-              cpu: "30m"
+              memory: "10Mi"
+              cpu: "10m"
             requests:
-              memory: "50Mi"
-              cpu: "30m"
+              memory: "10Mi"
+              cpu: "10m"
       volumes:
         - name: openvpn-exporter
           hostPath:

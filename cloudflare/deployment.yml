@@ -22,11 +22,8 @@ spec:
         - name: cloudflare
           resources:
             limits:
-              cpu: "100m"
-              memory: "30M"
-            requests:
-              cpu: "50m"
-              memory: "30M"
+              cpu: "10m"
+              memory: "10M"
           image: tedyst/cloudflare-docker-updater:latest
           env:
             - name: CFZONEID

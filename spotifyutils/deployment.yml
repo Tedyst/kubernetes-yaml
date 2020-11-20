@@ -22,11 +22,8 @@ spec:
         - name: spotifyutils-init
           resources:
             limits:
-              cpu: "2000m"
-              memory: "300M"
-            requests:
-              cpu: "200m"
-              memory: "300M"
+              cpu: "100m"
+              memory: "100M"
           image: tedyst/spotifyutils:latest
           command: ["flask", "db", "upgrade"]
           volumeMounts:

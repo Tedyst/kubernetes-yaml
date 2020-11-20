@@ -201,6 +201,10 @@ spec:
             - --providers.kubernetescrd
             - --log
             - --log.level=INFO
+          resources:
+            limits:
+              memory: "50Mi"
+              cpu: "200m"
           ports:
             - name: web
               containerPort: 80

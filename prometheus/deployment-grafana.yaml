@@ -32,11 +32,8 @@ spec:
           mountPath: /var/lib/grafana
         resources:
           limits:
-            memory: "1000Mi"
-            cpu: "200m"
-          requests:
-            memory: "500Mi"
-            cpu: "100m"
+            memory: "30Mi"
+            cpu: "50m"
       terminationGracePeriodSeconds: 30
       volumes:
       - name: data

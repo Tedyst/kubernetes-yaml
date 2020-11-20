@@ -19,9 +19,6 @@ spec:
         - name: musicbot
           resources:
             limits:
-              cpu: "500m"
-              memory: "300M"
-            requests:
               cpu: "100m"
               memory: "100M"
           image: ghcr.io/tedyst/musicbot:latest
