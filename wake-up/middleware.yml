@@ -1,0 +1,9 @@
+# wakeup.stoicatedy.ovh/verify?ip=192.168.10.1&address=AA:BB:CC:DD:EE:FF
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: startup-desktop
+  namespace: default
+spec:
+  forwardAuth:
+    address: "https://wakeup.stoicatedy.ovh/verify?ip=192.168.1.108&address=88:D7:F6:40:2B:F8"

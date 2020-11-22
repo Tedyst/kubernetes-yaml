@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wake-up
+  namespace: tedy
+  labels:
+    app: wake-up
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wake-up
+  template:
+    metadata:
+      labels:
+        app: wake-up
+    spec:
+      securityContext:
+        sysctls:
+          - name: net.ipv4.ping_group_range
+            value: "0   2147483647"
+      containers:
+        - name: wake-up
+          resources:
+            limits:
+              cpu: "50m"
+              memory: "30M"
+          image: ghcr.io/tedyst/wake-on-lan-server-go:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: arm
+        kubernetes.io/hostname: tedy-raspberry

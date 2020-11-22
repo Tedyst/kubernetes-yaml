@@ -10,8 +10,9 @@ spec:
       services:
         - name: jellyfin-service
           port: 8096
-  middlewares:
-    - name: hsts-header
+      middlewares:
+        - name: startup-desktop-jellyfin
+        - name: hsts-header
   tls:
     secretName: certificate-stoicatedy-ovh
 ---
@@ -34,3 +35,30 @@ spec:
   issuerRef:
     name: letsencrypt
     kind: ClusterIssuer
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: startup-desktop-jellyfin
+  namespace: filme
+spec:
+  forwardAuth:
+    address: "https://wakeup.stoicatedy.ovh/verify?ip=192.168.10.108&address=88:D7:F6:40:2B:F8&redirectURL=https://jellyfin.stoicatedy.ovh"
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: hsts-header
+  namespace: filme
+spec:
+  headers:
+    frameDeny: true
+    sslRedirect: true
+    accessControlAllowMethods:
+      - "GET"
+      - "OPTIONS"
+      - "PUT"
+    accessControlAllowOriginList:
+      - "https://stoicatedy.ovh"
+    accessControlMaxAge: 100
+    addVaryHeader: true

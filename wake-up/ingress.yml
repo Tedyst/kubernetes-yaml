@@ -1,0 +1,17 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: wake-up
+  namespace: tedy
+spec:
+  routes:
+    - match: Host(`wakeup.stoicatedy.ovh`)
+      kind: Rule
+      services:
+        - name: wake-up
+          port: 8080
+  middlewares:
+    - name: startup-desktop
+    - name: hsts-header
+  tls:
+    secretName: certificate-stoicatedy-ovh

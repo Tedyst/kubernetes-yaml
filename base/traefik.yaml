@@ -181,6 +181,8 @@ metadata:
 
 spec:
   replicas: 1
+  strategy:
+    type: "Recreate"
   selector:
     matchLabels:
       app: traefik
@@ -212,34 +214,6 @@ spec:
       nodeSelector:
         kubernetes.io/os: linux
         kubernetes.io/arch: arm
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: hsts-header
-spec:
-  headers:
-    frameDeny: true
-    sslRedirect: true
-    accessControlAllowMethods:
-      - "GET"
-      - "OPTIONS"
-      - "PUT"
-    accessControlAllowOriginList:
-      - "https://stoicatedy.ovh"
-    accessControlMaxAge: 100
-    addVaryHeader: true
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: ingress-base
-  namespace: tedy
-spec:
-  middlewares:
-    - name: hsts-header
-  tls:
-    secretName: certificate-stoicatedy-ovh
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate

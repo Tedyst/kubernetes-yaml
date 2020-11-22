@@ -6,22 +6,26 @@ metadata:
 spec:
   routes:
     - match: Host(`bitwarden.stoicatedy.ovh`) && PathPrefix(`/`)
+      middlewares:
+        - name: hsts-header
       kind: Rule
       services:
         - name: bitwarden-http
           port: 80
     - match: Host(`bitwarden.stoicatedy.ovh`) && PathPrefix(`/notifications/hub/negotiate`)
+      middlewares:
+        - name: hsts-header
       kind: Rule
       services:
         - name: bitwarden-http
           port: 80
     - match: Host(`bitwarden.stoicatedy.ovh`) && PathPrefix(`/notifications/hub`)
+      middlewares:
+        - name: hsts-header
       kind: Rule
       services:
         - name: bitwarden-websockets
           port: 3012
-  middlewares:
-    - name: hsts-header
   tls:
     secretName: certificate-stoicatedy-ovh
 ---
@@ -44,3 +48,21 @@ spec:
   issuerRef:
     name: letsencrypt
     kind: ClusterIssuer
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: hsts-header
+  namespace: tedy
+spec:
+  headers:
+    frameDeny: true
+    sslRedirect: true
+    accessControlAllowMethods:
+      - "GET"
+      - "OPTIONS"
+      - "PUT"
+    accessControlAllowOriginList:
+      - "https://stoicatedy.ovh"
+    accessControlMaxAge: 100
+    addVaryHeader: true
