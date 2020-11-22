@@ -9,7 +9,7 @@ spec:
       kind: Rule
       services:
         - name: wake-up
-          port: 8080
+          port: 6001
   middlewares:
     - name: startup-desktop
     - name: hsts-header

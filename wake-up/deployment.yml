@@ -6,6 +6,8 @@ metadata:
   labels:
     app: wake-up
 spec:
+  strategy:
+    type: "Recreate"
   replicas: 1
   selector:
     matchLabels:
@@ -15,19 +17,18 @@ spec:
       labels:
         app: wake-up
     spec:
-      securityContext:
-        sysctls:
-          - name: net.ipv4.ping_group_range
-            value: "0   2147483647"
+      hostNetwork: true
       containers:
         - name: wake-up
+          args:
+            - "-addr=:6001"
           resources:
             limits:
               cpu: "50m"
               memory: "30M"
           image: ghcr.io/tedyst/wake-on-lan-server-go:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 6001
               protocol: TCP
       nodeSelector:
         kubernetes.io/os: linux
