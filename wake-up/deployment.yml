@@ -18,6 +18,10 @@ spec:
         app: wake-up
     spec:
       hostNetwork: true
+      # securityContext:
+      #   sysctls:
+      #     - name: net.ipv4.ping_group_range
+      #       value: "0   2147483647"
       containers:
         - name: wake-up
           args:
