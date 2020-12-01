@@ -20,8 +20,8 @@ spec:
       hostNetwork: true
       dnsConfig:
         nameservers:
-        - 127.0.0.1
-        - 1.1.1.1
+          - 127.0.0.1
+          - 1.1.1.1
       containers:
         - name: pihole
           image: pihole/pihole:latest
@@ -40,10 +40,22 @@ spec:
               value: "Europe/Bucharest"
             - name: ServerIP
               value: "192.168.10.21"
+            - name: ServerIPv6
+              value: "2a02:2f0e:5a0f:4900::21"
             - name: VIRTUAL_HOST
               value: "pihole.stoicatedy.ovh"
+            - name: INTERFACE
+              value: "br0"
+            - name: DNS1
+              value: "1.1.1.1"
+            - name: DNS2
+              value: "1.0.0.1"
+            - name: CONDITIONAL_FORWARDING
+              value: "true"
+            - name: CONDITIONAL_FORWARDING_IP
+              value: "192.168.10.1"
           volumeMounts:
-            - mountPath: /etc/pihole/ 
+            - mountPath: /etc/pihole/
               name: pihole
             - mountPath: /etc/dnsmasq.d/
               name: dnsmasq
