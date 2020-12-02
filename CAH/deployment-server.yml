@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+  namespace: cah
+  labels:
+    app: server
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: server
+          resources:
+            limits:
+              cpu: "1000m"
+              memory: "300M"
+            requests:
+              cpu: "500m"
+              memory: "300M"
+          image: massivedecks/server
+          ports:
+            - containerPort: 8081
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: amd64
