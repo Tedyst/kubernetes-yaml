@@ -18,32 +18,21 @@ spec:
         app: spotifyutils
     spec:
       terminationGracePeriodSeconds: 0
-      initContainers:
-        - name: spotifyutils-init
-          resources:
-            limits:
-              cpu: "100m"
-              memory: "100M"
-          image: tedyst/spotifyutils:latest
-          command: ["flask", "db", "upgrade"]
-          volumeMounts:
-            - mountPath: /data
-              name: data
       containers:
         - name: spotifyutils
+          args:
+            - "-RedirectURL=https://spotify.stoicatedy.ovh/auth"
           resources:
             limits:
-              cpu: "2000m"
+              cpu: "200m"
               memory: "300M"
             requests:
               cpu: "200m"
               memory: "300M"
-          image: tedyst/spotifyutils:latest
+          image: ghcr.io/tedyst/spotifyutils:latest
           ports:
             - containerPort: 5000
-          volumeMounts:
-            - mountPath: /data
-              name: data
+            - containerPort: 5001
           env:
             - name: SECRET_KEY
               valueFrom:
@@ -65,10 +54,11 @@ spec:
                 secretKeyRef:
                   name: spotifyutils-secret
                   key: GENIUSTOKEN
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: spotifyutils
+            - name: DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: spotifyutils-secret
+                  key: DATABASE
       nodeSelector:
         kubernetes.io/os: linux
         kubernetes.io/arch: arm

@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: testing
+  namespace: tedy
+spec:
+  routes:
+    - match: Host(`testing.stoicatedy.ovh`) && PathPrefix(`/`)
+      kind: Rule
+      services:
+        - name: testing
+          port: 80
+  tls:
+    secretName: certificate-stoicatedy-ovh

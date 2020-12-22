@@ -1,0 +1,43 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: openvpn-exporter
+  namespace: tedy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: openvpn-exporter
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        k8s-app: openvpn-exporter
+    spec:
+      containers:
+        - name: openvpn-exporter
+          image: ghcr.io/tedyst/openvpn-exporter:latest
+          ports:
+            - containerPort: 9176
+              protocol: TCP
+          args:
+            - "-openvpn.status_paths"
+            - "/var/log/openvpn/status.log"
+          volumeMounts:
+            - mountPath: /var/log/openvpn/
+              name: openvpn-exporter
+          resources:
+            limits:
+              memory: "10Mi"
+              cpu: "10m"
+            requests:
+              memory: "10Mi"
+              cpu: "10m"
+      volumes:
+        - name: openvpn-exporter
+          hostPath:
+            path: /var/log/openvpn/
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: arm
