@@ -26,6 +26,8 @@ data:
       - targets:
         - 192.168.10.54:9182
     - job_name: 'kubernetes'
+      scrape_interval: 20s
+      scrape_timeout: 3s
       kubernetes_sd_configs:
         - role: pod
       relabel_configs:
