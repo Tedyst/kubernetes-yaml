@@ -5,9 +5,9 @@ metadata:
   namespace: monitoring
 spec:
   selector:
-    name: node-exporter
+    app: node-exporter
   ports:
-  - name: node-exporter
-    protocol: TCP
-    port: 9100
-    targetPort: 9100
+    - name: node-exporter
+      protocol: TCP
+      port: 9100
+      targetPort: 9100

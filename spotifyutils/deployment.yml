@@ -16,6 +16,9 @@ spec:
     metadata:
       labels:
         app: spotifyutils
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "5001"
     spec:
       terminationGracePeriodSeconds: 0
       containers:

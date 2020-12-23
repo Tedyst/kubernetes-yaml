@@ -30,9 +30,12 @@ spec:
           image: linuxserver/mariadb:latest
           ports:
             - containerPort: 3306
+          volumeMounts:
+            - mountPath: /config
+              name: data
           env:
             - name: MYSQL_DATABASE
-              value: "spotifyutils"
+              value: spotifyutils
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
