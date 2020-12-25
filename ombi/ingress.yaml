@@ -1,0 +1,16 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ombi-ingress
+  namespace: filme
+spec:
+  routes:
+    - match: Host(`ombi.stoicatedy.ovh`)
+      kind: Rule
+      services:
+        - name: ombi-service
+          port: 3579
+      middlewares:
+        - name: hsts-header
+  tls:
+    secretName: certificate-stoicatedy-ovh
