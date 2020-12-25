@@ -89,6 +89,8 @@ spec:
       containers:
         - name: metrics-server
           image: rancher/metrics-server:v0.3.6
+          args:
+            - --metric-resolution=300s
           volumeMounts:
             - name: tmp-dir
               mountPath: /tmp

@@ -190,6 +190,9 @@ spec:
     metadata:
       labels:
         app: traefik
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8082"
     spec:
       terminationGracePeriodSeconds: 0
       serviceAccountName: traefik-ingress-controller
@@ -200,6 +203,10 @@ spec:
             - --entrypoints.web.address=:80
             - --entrypoints.websecure.address=:443
             - --providers.kubernetescrd
+            - --metrics.prometheus=true
+            - --metrics=true
+            - --entryPoints.metrics.address=:8082
+            - --metrics.prometheus.entryPoint=metrics
           resources:
             limits:
               memory: "80Mi"
@@ -211,6 +218,8 @@ spec:
             - name: websecure
               hostPort: 8081
               containerPort: 443
+            - name: metrics
+              containerPort: 8082
       nodeSelector:
         kubernetes.io/os: linux
         kubernetes.io/arch: arm

@@ -21,24 +21,24 @@ spec:
         app: grafana
     spec:
       containers:
-      - name: grafana
-        image: grafana/grafana
-        imagePullPolicy: IfNotPresent
-        ports:
-        - name: web
-          containerPort: 3000
-        volumeMounts:
-        - name: data
-          mountPath: /var/lib/grafana
-        resources:
-          limits:
-            memory: "30Mi"
-            cpu: "50m"
+        - name: grafana
+          image: grafana/grafana
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: web
+              containerPort: 3000
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/grafana
+          resources:
+            limits:
+              memory: "200Mi"
+              cpu: "200m"
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: data
-        persistentVolumeClaim:
-          claimName: grafana
+        - name: data
+          persistentVolumeClaim:
+            claimName: grafana
       nodeSelector:
         kubernetes.io/os: linux
         kubernetes.io/arch: arm
