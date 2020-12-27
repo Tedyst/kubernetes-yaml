@@ -79,17 +79,29 @@ tolerations: []
 affinity: {}
 
 spotifyutils:
+  # -- Enable Debug mode
   debug: false
+  # -- Enable Metrics
   metrics: false
+  # -- Base URL to Redirect to
   redirectURL: "http://spotify.cluster/auth"
+  # -- Token from Genius
   geniusToken: ""
+  # -- Secret key generated from `openssl rand -hex 16`
   secretKey: ""
+  # -- Client ID from Spotify
   spotifyClientID: ""
+  # -- Client Secret from Spotify
   spotifyClientSecret: ""
 
 database:
+  # -- The MySQL user
   user: "root"
+  # -- The MySQL password
   password: "password"
+  # -- The MySQL address, without port
   address: "db"
+  # -- The MySQL port
   port: "3306"
+  # -- The MySQL database
   database: "spotifyutils"
