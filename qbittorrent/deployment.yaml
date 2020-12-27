@@ -15,6 +15,7 @@ spec:
       labels:
         k8s-app: qbittorrent
     spec:
+      hostNetwork: true
       containers:
         - name: qbittorrent
           image: linuxserver/qbittorrent:latest
@@ -23,28 +24,22 @@ spec:
               value: "8080"
           ports:
             - containerPort: 8080
-            - containerPort: 6881
-              protocol: UDP
-              hostPort: 6881
-            - containerPort: 6881
-              protocol: TCP
-              hostPort: 6881
           volumeMounts:
             - mountPath: /config
               name: config
-            - mountPath: /downloads
-              name: downloads
+            - mountPath: /mnt/hddext4
+              name: hdd
           resources:
-            requests:
+            limits:
               memory: "100Mi"
               cpu: "100m"
       volumes:
         - name: config
           persistentVolumeClaim:
             claimName: qbittorrent-config
-        - name: downloads
+        - name: hdd
           hostPath:
-            path: /mnt/hddext4/qbittorrent/
+            path: /mnt/hddext4/Jellyfin-all/
       terminationGracePeriodSeconds: 0
       nodeSelector:
         kubernetes.io/os: linux

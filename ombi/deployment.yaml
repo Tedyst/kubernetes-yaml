@@ -23,11 +23,11 @@ spec:
               name: config
           resources:
             limits:
-              memory: "100Mi"
-              cpu: "100m"
+              memory: "500Mi"
+              cpu: "500m"
             requests:
-              memory: "100Mi"
-              cpu: "100m"
+              memory: "500Mi"
+              cpu: "500m"
       volumes:
         - name: config
           persistentVolumeClaim:

@@ -14,23 +14,3 @@ spec:
     - name: hsts-header
   tls:
     secretName: certificate-stoicatedy-ovh
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: certificate-stoicatedy-ovh
-  namespace: filme
-spec:
-  secretName: certificate-stoicatedy-ovh
-  commonName: stoicatedy.ovh
-  usages:
-    - server auth
-    - client auth
-    - digital signature
-    - any
-  dnsNames:
-    - "stoicatedy.ovh"
-    - "*.stoicatedy.ovh"
-  issuerRef:
-    name: letsencrypt
-    kind: ClusterIssuer

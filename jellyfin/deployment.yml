@@ -51,22 +51,17 @@ spec:
           volumeMounts:
             - name: config-volume
               mountPath: /config
-            - name: filme
-              mountPath: /mnt/hddext4/Filme
-            - name: seriale
-              mountPath: /mnt/hddext4/Seriale
+            - name: hdd
+              mountPath: /mnt/hddext4/
           securityContext:
             privileged: true
       volumes:
         - name: config-volume
           hostPath:
             path: /mnt/hddext4/jellyfin/config
-        - name: filme
+        - name: hdd
           hostPath:
-            path: /mnt/hddext4/Filme
-        - name: seriale
-          hostPath:
-            path: /mnt/hddext4/Seriale
+            path: /mnt/hddext4/Jellyfin-all/
         - name: videocard
           hostPath:
             path: /dev/dri

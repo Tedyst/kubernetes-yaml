@@ -19,23 +19,18 @@ spec:
           ports:
             - containerPort: 7878
           volumeMounts:
-            - mountPath: /config 
+            - mountPath: /config
               name: config
-            - mountPath: /movies
-              name: movies
-            - mountPath: /downloads 
-              name: downloads
+            - mountPath: /mnt/hddext4/
+              name: hdd
           resources:
-            requests:
+            limits:
               memory: "500Mi"
               cpu: "1000m"
       volumes:
-        - name: downloads
+        - name: hdd
           hostPath:
-            path: /mnt/hddext4/qbittorrent
-        - name: movies
-          hostPath:
-            path: /mnt/hddext4/Filme
+            path: /mnt/hddext4/Jellyfin-all/
         - name: config
           persistentVolumeClaim:
             claimName: radarr-config
