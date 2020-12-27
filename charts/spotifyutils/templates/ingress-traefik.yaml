@@ -16,6 +16,6 @@ spec:
         - name: {{ $fullName }}
           port: {{ $svcPort }}
   tls:
-    {{ toYaml .Values.ingress.tls | nindent 4 }}
+    {{ toYaml .Values.ingress.traefikTLS | nindent 4 }}
 {{- end }}
 {{- end }}
