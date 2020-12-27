@@ -8,4 +8,4 @@ secret*
 nastasa-k8s-config
 .gitsecret/keys/random_seed
 !*.secret
-values/
+values/*.yml
