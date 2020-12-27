@@ -60,3 +60,10 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Expand the uri of the database
+*/}}
+{{- define "spotifyutils.database.uri" -}}
+{{- printf "%s:%s@tcp(%s:%s)/%s" .Values.database.user .Values.database.password .Values.database.address .Values.database.port .Values.database.database -}}
+{{- end }}

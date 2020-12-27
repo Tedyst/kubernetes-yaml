@@ -32,23 +32,49 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: 5000
+              protocol: TCP
+            - name: metrics
+              containerPort: 5001
               protocol: TCP
           args:
-            - "-Address=0.0.0.0:{{ .Values.service.port }}"
             - "-Debug={{ .Values.spotifyutils.debug }}"
             - "-Metrics={{ .Values.spotifyutils.metrics }}"
-            - "-RedirectURL={{ .Values.spotifyutils.redirectURL }}"
-          {{ if .Values.livenessAndReadiness }}
+            - "-RedirectURL={{ required "You need to specify a Redirect URL" .Values.spotifyutils.redirectURL }}"
+          env:
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "spotifyutils.fullname" . }}
+                  key: SECRETKEY
+            - name: SPOTIFY_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "spotifyutils.fullname" . }}
+                  key: SPOTIFYCLIENTID
+            - name: SPOTIFY_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "spotifyutils.fullname" . }}
+                  key: SPOTIFYCLIENTSECRET
+            - name: GENIUS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "spotifyutils.fullname" . }}
+                  key: GENIUSTOKEN
+            - name: DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "spotifyutils.fullname" . }}
+                  key: DATABASE
+          {{ if .Values.livenessProbe }}
           livenessProbe:
-            httpGet:
-              path: /
-              port: http
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          {{ end }}
+          {{ if .Values.readinessProbe }}
           readinessProbe:
-            httpGet:
-              path: /
-              port: http
-          {{- end }}
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          {{ end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

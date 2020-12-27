@@ -26,8 +26,8 @@ spec:
               protocol: TCP
           resources:
             limits:
-              memory: "50Mi"
-              cpu: "50m"
+              memory: "100Mi"
+              cpu: "100m"
           securityContext:
             privileged: true
           image: prom/node-exporter

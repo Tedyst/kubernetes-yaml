@@ -1,0 +1,16 @@
+nodeSelector:
+  "kubernetes.io/os": "linux"
+  "kubernetes.io/arch": "arm"
+
+readinessProbe: {}
+
+livenessProbe: {}
+
+persistence:
+  enabled: false
+
+serviceMonitor:
+  enabled: false
+  interval: "30s"
+  additionalLabels: {}
+  annotations: {}
