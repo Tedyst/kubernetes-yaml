@@ -48,10 +48,9 @@ livenessProbe:
   #   path: /
   #   port: http
 readinessProbe:
-  {}
-  # httpGet:
-  #   path: /
-  #   port: http
+  httpGet:
+    path: /
+    port: http
 
 resources:
   limits:
