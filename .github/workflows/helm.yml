@@ -33,7 +33,8 @@ jobs:
           done
           mkdir /tmp/action
           git checkout gh-pages
-          mv ./ ../
+          mv *.tgz ../
+          cd ../
           helm repo index .
           git add .
           git commit . -m "Automated Build"
