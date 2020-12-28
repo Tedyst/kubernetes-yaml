@@ -31,6 +31,7 @@ jobs:
           helm repo add tedy https://helm.stoicatedy.ovh
           helm repo update
           for d in */ ; do
+            helm dependency build $d
             helm package $d
           done
           mkdir /tmp/action
