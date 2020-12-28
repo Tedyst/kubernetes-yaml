@@ -32,8 +32,8 @@ jobs:
             helm package $d
           done
           mkdir /tmp/action
-          cp *.tgz /tmp/action
           git checkout gh-pages
+          mv ./ ../
           helm repo index .
           git add .
           git commit . -m "Automated Build"
