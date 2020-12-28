@@ -11,3 +11,4 @@ nastasa-k8s-config
 values/*.yml
 !charts/**/secret.yaml
 **.tgz
+**.lock

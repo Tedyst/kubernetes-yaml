@@ -1,6 +1,0 @@
-dependencies:
-- name: mariadb
-  repository: https://helm.stoicatedy.ovh
-  version: 0.1.0
-digest: sha256:84e4047071421adce7336c1f461dc1c3a0f64c9365aff266f0e9635d5576de75
-generated: "2020-12-28T13:51:27.98141323+02:00"
