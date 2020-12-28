@@ -1,0 +1,6 @@
+dependencies:
+- name: mariadb
+  repository: file://../mariadb
+  version: 0.1.0
+digest: sha256:9dac2feb463952f141a497966424a89a4acef9f8c329fdfc61f54fb952b56f02
+generated: "2020-12-28T13:07:29.546457519+02:00"

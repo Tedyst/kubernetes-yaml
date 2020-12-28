@@ -1,6 +1,6 @@
 apiVersion: v2
-name: spotifyutils
-description: SpotifyUtils
+name: mariadb
+description: linuxserver/mariadb chart
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -20,16 +20,4 @@ version: 0.1.0
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
-appVersion: 1.16.0
-
-dependencies:
-  - name: mariadb
-    version: 0.1.0
-    repository: file://../mariadb
-    condition: database.create
-    alias: database
-
-maintainers:
-  - name: Stoica Tedy
-    email: stoicatedy@gmail.com
-    url: https://stoicatedy.ovh
+appVersion: 110.4.17mariabionic-ls5

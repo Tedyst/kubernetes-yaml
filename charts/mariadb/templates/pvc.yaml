@@ -1,0 +1,12 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "mariadb.fullname" . }}
+spec:
+  {{- with .Values.persistentVolumeClaim.accessModes }}
+  accessModes:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.persistentVolumeClaim.size }}
