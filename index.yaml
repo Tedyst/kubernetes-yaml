@@ -3,9 +3,9 @@ entries:
   mariadb:
   - apiVersion: v2
     appVersion: 110.4.17mariabionic-ls5
-    created: "2020-12-28T11:46:47.09482963Z"
+    created: "2020-12-28T12:04:30.27673347Z"
     description: linuxserver/mariadb chart
-    digest: 3da3c37e75e990d89fe2d65234c18ecad791d28598c65cd1b55d31b1c5a73bbf
+    digest: a72fa072c5804f57b2daae2fa88fe44949e53e0a8609ee77cadc614fa2c83289
     name: mariadb
     type: application
     urls:
@@ -14,7 +14,7 @@ entries:
   spotifyutils:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-12-28T11:46:47.096002631Z"
+    created: "2020-12-28T12:04:30.27792957Z"
     dependencies:
     - alias: database
       condition: database.create
@@ -22,7 +22,7 @@ entries:
       repository: file://../mariadb
       version: 0.1.0
     description: SpotifyUtils
-    digest: 083b4a973c9a07b03a31b1447d283bdff14f76c8954dad21147c64efda6c1d98
+    digest: 367151d4fec2e3ab7d9a6c55e9c412e0cf2992f4c781af062c1728b8450685c1
     maintainers:
     - email: stoicatedy@gmail.com
       name: Stoica Tedy
@@ -32,4 +32,4 @@ entries:
     urls:
     - spotifyutils-0.1.0.tgz
     version: 0.1.0
-generated: "2020-12-28T11:46:47.094151329Z"
+generated: "2020-12-28T12:04:30.27612307Z"
