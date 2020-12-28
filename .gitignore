@@ -10,3 +10,4 @@ nastasa-k8s-config
 !*.secret
 values/*.yml
 !charts/**/secret.yaml
+**.tgz

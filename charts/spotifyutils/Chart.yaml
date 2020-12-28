@@ -25,7 +25,7 @@ appVersion: 1.16.0
 dependencies:
   - name: mariadb
     version: 0.1.0
-    repository: file://../mariadb
+    repository: https://helm.stoicatedy.ovh
     condition: database.create
     alias: database
 
