@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "cloudflare-docker-updater.fullname" . }}
+  labels:
+    {{- include "cloudflare-docker-updater.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "cloudflare-docker-updater.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "cloudflare-docker-updater.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: CFZONEID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "cloudflare-docker-updater.fullname" . }}
+                  key: CFZONEID
+            - name: CFUSERID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "cloudflare-docker-updater.fullname" . }}
+                  key: CFUSERID
+            - name: CFTOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "cloudflare-docker-updater.fullname" . }}
+                  key: CFTOKEN
+            - name: CFHOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "cloudflare-docker-updater.fullname" . }}
+                  key: CFHOST
+            - name: CFINTERVAL
+              value: {{ .Values.updater.interval | quote }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
