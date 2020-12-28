@@ -211,7 +211,7 @@ spec:
             - --entrypoints.websecure.http.tls
             - --providers.kubernetescrd
             - --providers.kubernetesingress
-            - --log.level=DEBUG
+            # - --log.level=DEBUG
           resources:
             limits:
               memory: "80Mi"
