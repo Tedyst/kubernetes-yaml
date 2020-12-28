@@ -28,7 +28,10 @@ jobs:
       - name: Run Build
         run: |
           cd charts/
+          helm repo add tedy https://helm.stoicatedy.ovh
+          helm repo update
           for d in */ ; do
+            helm dependency build $d --skip-refresh
             helm package $d
           done
           mkdir /tmp/action
