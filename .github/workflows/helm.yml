@@ -1,0 +1,40 @@
+name: Build Helm Charts
+
+on:
+  push:
+    branches:
+      - master
+      - helm
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.4.0
+
+      - name: Run Build
+        run: |
+          cd charts/
+          for d in */ ; do
+            helm package $d
+          done
+          mkdir /tmp/action
+          cp *.tgz /tmp/action
+          git checkout gh-pages
+          helm repo index .
+          git add .
+          git commit . -m "Automated Build"
+          git push
