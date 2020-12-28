@@ -130,6 +130,16 @@ rules:
       - watch
   - apiGroups:
       - extensions
+      - networking.k8s.io
+    resources:
+      - ingresses
+      - ingressclasses
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - extensions
     resources:
       - ingresses/status
     verbs:
@@ -148,7 +158,6 @@ rules:
       - get
       - list
       - watch
-
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1
@@ -199,7 +208,10 @@ spec:
           args:
             - --entrypoints.web.address=:80
             - --entrypoints.websecure.address=:443
+            - --entrypoints.websecure.http.tls
             - --providers.kubernetescrd
+            - --providers.kubernetesingress
+            - --log.level=DEBUG
           resources:
             limits:
               memory: "80Mi"
@@ -234,3 +246,71 @@ spec:
   issuerRef:
     name: letsencrypt
     kind: ClusterIssuer
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate-stoicatedy-ovh
+  namespace: default
+spec:
+  secretName: certificate-stoicatedy-ovh
+  commonName: stoicatedy.ovh
+  usages:
+    - server auth
+    - client auth
+    - digital signature
+    - any
+  dnsNames:
+    - "stoicatedy.ovh"
+    - "*.stoicatedy.ovh"
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate-stoicatedy-ovh
+  namespace: filme
+spec:
+  secretName: certificate-stoicatedy-ovh
+  commonName: stoicatedy.ovh
+  usages:
+    - server auth
+    - client auth
+    - digital signature
+    - any
+  dnsNames:
+    - "stoicatedy.ovh"
+    - "*.stoicatedy.ovh"
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: startup-desktop-jellyfin
+  namespace: filme
+spec:
+  forwardAuth:
+    address: "https://wakeup.stoicatedy.ovh/verify?ip=192.168.10.108&address=88:D7:F6:40:2B:F8&redirectURL=https://jellyfin.stoicatedy.ovh"
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: hsts-header
+  namespace: filme
+spec:
+  headers:
+    frameDeny: true
+    sslRedirect: true
+    accessControlAllowMethods:
+      - "GET"
+      - "OPTIONS"
+      - "PUT"
+    accessControlAllowOriginList:
+      - "https://stoicatedy.ovh"
+    accessControlMaxAge: 100
+    addVaryHeader: true

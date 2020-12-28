@@ -1,5 +1,4 @@
 {{- if .Values.ingress.enabled -}}
-{{- if not .Values.ingress.traefik -}}
 {{- $fullName := include "spotifyutils.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
@@ -29,5 +28,4 @@ spec:
             backend:
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
-  {{- end }}
 {{- end }}
