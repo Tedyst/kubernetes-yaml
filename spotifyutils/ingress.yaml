@@ -1,19 +1,18 @@
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
 metadata:
-  name: spotify-ingress
-  namespace: tedy
+  name: spotifyutils
 spec:
-  routes:
-    - match: Host(`spotify.stoicatedy.ovh`)
-      kind: Rule
-      services:
-        - name: spotifyutils
-          port: 5000
-  middlewares:
-    - name: hsts-header
   tls:
-    secretName: certificate-stoicatedy-ovh
+    - secretName: certificate-stoicatedy-ovh
+  rules:
+    - host: spotify.stoicatedy.ovh
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: spotifyutils
+              servicePort: 5000
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
