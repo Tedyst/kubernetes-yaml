@@ -13,9 +13,18 @@ spec:
       {{- include "spotifyutils.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      {{- if .Values.spotifyutils.metrics }}
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "5001"
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- else }}
       {{- with .Values.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- end }}
       labels:
         {{- include "spotifyutils.selectorLabels" . | nindent 8 }}
@@ -67,14 +76,14 @@ spec:
                 secretKeyRef:
                   name: {{ include "spotifyutils.fullname" . }}
                   key: DATABASE
-          {{ if .Values.livenessProbe }}
+          {{- if .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
-          {{ end }}
-          {{ if .Values.readinessProbe }}
+          {{- end }}
+          {{- if .Values.readinessProbe }}
           readinessProbe:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
-          {{ end }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
