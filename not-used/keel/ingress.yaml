@@ -1,0 +1,16 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: keel-ingress
+  namespace: kube-system
+spec:
+  routes:
+    - match: Host(`keel.stoicatedy.ovh`)
+      kind: Rule
+      services:
+        - name: keel
+          port: 9300
+  middlewares:
+    - name: hsts-header
+  tls:
+    secretName: certificate-stoicatedy-ovh
