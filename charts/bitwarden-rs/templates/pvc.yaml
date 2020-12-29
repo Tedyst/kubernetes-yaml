@@ -1,0 +1,14 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "bitwarden-rs.fullname" . }}
+  annotations:
+    "helm.sh/resource-policy": "keep"
+spec:
+  {{- with .Values.persistentVolumeClaim.accessModes }}
+  accessModes:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.persistentVolumeClaim.size }}

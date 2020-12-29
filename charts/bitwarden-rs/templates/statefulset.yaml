@@ -1,0 +1,169 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "bitwarden-rs.fullname" . }}
+  labels:
+    {{- include "bitwarden-rs.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "bitwarden-rs.selectorLabels" . | nindent 6 }}
+  serviceName: {{ include "bitwarden-rs.fullname" . }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "bitwarden-rs.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "bitwarden-rs.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          env:
+            {{- if .Values.bitwarden.webSocket.enabled }}
+            - name: WEBSOCKET_ENABLED
+              value: {{ .Values.bitwarden.webSocket.enabled | quote }}
+            - name: WEBSOCKET_ADDRESS
+              value: {{ .Values.bitwarden.webSocket.address | quote }}
+            - name: WEBSOCKET_PORT
+              value: {{ .Values.bitwarden.webSocket.port | quote }}
+            {{- end }}
+            - name: LOG_LEVEL
+              value: {{ .Values.bitwarden.logLevel | quote }}
+            - name: DISABLE_ICON_DOWNLOAD
+              value: {{ .Values.bitwarden.icon.disableDownload | quote }}
+            - name: ICON_DOWNLOAD_TIMEOUT
+              value: {{ .Values.bitwarden.icon.timeout | quote }}
+            - name: EMAIL_ATTEMPTS_LIMIT
+              value: {{ .Values.bitwarden.email.attemptsLimit | quote }}
+            - name: EMAIL_EXPIRATION_TIME
+              value: {{ .Values.bitwarden.email.expirationTime | quote }}
+            - name: EMAIL_TOKEN_SIZE
+              value: {{ .Values.bitwarden.email.tokenSize | quote }}
+            - name: SIGNUPS_ALLOWED
+              value: {{ .Values.bitwarden.signups.allowed | quote }}
+            - name: SIGNUPS_VERIFY
+              value: {{ .Values.bitwarden.signups.verify.enabled | quote }}
+            - name: SIGNUPS_VERIFY_RESEND_TIME
+              value: {{ .Values.bitwarden.signups.verify.resend.timeout | quote }}
+            - name: SIGNUPS_VERIFY_RESEND_LIMIT
+              value: {{ .Values.bitwarden.signups.verify.resend.limit | quote }}
+            {{- if .Values.bitwarden.signups.domains.whitelist }}
+            - name: SIGNUPS_DOMAINS_WHITELIST
+              value: {{ .Values.bitwarden.signups.domains.whitelist | quote }}
+            {{- end }}
+            {{- if .Values.bitwarden.admin.token }}
+            - name: ADMIN_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "bitwarden-rs.fullname" . }}
+                  key: ADMINTOKEN
+            {{- end }}
+            - name: PASSWORD_ITERATIONS
+              value: {{ .Values.bitwarden.password.iterations | quote }}
+            - name: SHOW_PASSWORD_HINT
+              value: {{ .Values.bitwarden.password.hints | quote }}
+            {{- if .Values.ingress.enabled }}
+            - name: DOMAIN
+              {{- if .Values.ingress.tls }}
+              value: "https://{{ .Values.ingress.host }}"
+              {{- else }}
+              value: "http://{{ .Values.ingress.host }}"
+              {{- end }}
+            {{- end }}
+            {{- if .Values.bitwarden.yubico.enabled }}
+            - name: YUBICO_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "bitwarden-rs.fullname" . }}
+                  key: YUBICOCLIENTID
+            - name: YUBICO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "bitwarden-rs.fullname" . }}
+                  key: YUBICOSECRETKEY
+            {{- if .Values.bitwarden.yubico.server }}
+            - name: YUBICO_SERVER
+              value: {{ .Values.bitwarden.yubico.server }}
+            {{- end }}
+            {{- end }}
+            {{- if .Values.bitwarden.duo.enabled }}
+            - name: DUO_IKEY
+              value: {{ .Values.bitwarden.duo.iKey | quote }}
+            - name: DUO_SKEY
+              value: {{ .Values.bitwarden.duo.sKey | quote }}
+            - name: DUO_HOST
+              value: {{ .Values.bitwarden.duo.host | quote }}
+            {{- end }}
+            {{- if .Values.bitwarden.smtp.enabled }}
+            - name: SMTP_HOST
+              value: {{ .Values.bitwarden.smtp.host | quote }}
+            - name: SMTP_FROM
+              value: {{ .Values.bitwarden.smtp.from.address | quote }}
+            - name: SMTP_FROM_NAME
+              value: {{ .Values.bitwarden.smtp.from.name | quote }}
+            - name: SMTP_PORT
+              value: {{ .Values.bitwarden.smtp.port | quote }}
+            - name: SMTP_SSL
+              value: {{ .Values.bitwarden.smtp.ssl.enabled | quote }}
+            - name: SMTP_EXPLICIT_TLS
+              value: {{ .Values.bitwarden.smtp.ssl.explicit | quote }}
+            - name: SMTP_USERNAME
+              value: {{ .Values.bitwarden.smtp.username | quote }}
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "bitwarden-rs.fullname" . }}
+                  key: SMTPPASSWORD
+            - name: SMTP_TIMEOUT=15
+              value: {{ .Values.bitwarden.smtp.timeout | quote }}
+            {{- end }}
+            {{- if .Values.bitwarden.hibpKey }}
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "bitwarden-rs.fullname" . }}
+                  key: HIBPKEY
+            {{- end }}
+
+          {{- if .Values.livenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          {{- end }}
+          {{- if .Values.readinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
