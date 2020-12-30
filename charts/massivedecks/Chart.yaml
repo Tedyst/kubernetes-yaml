@@ -21,3 +21,18 @@ version: 0.1.0
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 appVersion: 1.16.0
+
+dependencies:
+  - name: server
+    version: 0.1.0
+    repository: file://./server
+    alias: server
+  - name: client
+    version: 0.1.0
+    repository: file://./client
+    alias: client
+
+maintainers:
+  - name: Stoica Tedy
+    email: stoicatedy@gmail.com
+    url: https://stoicatedy.ovh
