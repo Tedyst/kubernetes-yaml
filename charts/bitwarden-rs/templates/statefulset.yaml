@@ -144,7 +144,6 @@ spec:
                   name: {{ include "bitwarden-rs.fullname" . }}
                   key: HIBPKEY
             {{- end }}
-
           {{- if .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
@@ -155,6 +154,17 @@ spec:
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ if .Values.persistentVolumeClaim.existingClaim -}}
+              {{- .Values.persistentVolumeClaim.existingClaim -}}
+              {{- else -}}
+              {{ include "bitwarden-rs.fullname" . }}
+              {{- end -}}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

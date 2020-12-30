@@ -91,6 +91,7 @@ persistentVolumeClaim:
   size: 300Mi
   accessModes:
     - ReadWriteOnce
+  existingClaim: 
 
 # https://github.com/dani-garcia/bitwarden_rs/blob/master/.env.template
 bitwarden:
