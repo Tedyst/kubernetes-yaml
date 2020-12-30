@@ -38,6 +38,7 @@ jobs:
           git checkout gh-pages
           mv *.tgz ../
           cd ../
+          rm -rf charts/
           helm repo index .
           git add .
           git commit . -m "Automated Build"
