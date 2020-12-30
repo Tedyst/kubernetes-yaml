@@ -1,0 +1,190 @@
+# Default values for server.
+# This is a YAML-formatted file.
+
+replicaCount: 1
+
+image:
+  repository: ghcr.io/lattyware/massivedecks/server
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  fsGroup: 2000
+
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths: []
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+livenessProbe:
+  {}
+  # httpGet:
+  #   path: /
+  #   port: http
+readinessProbe:
+  {}
+  # httpGet:
+  #   path: /
+  #   port: http
+
+config: {
+  "secret": "CHANGEME",
+  "listenOn": 5000,
+  "basePath": "",
+  "defaults": {
+    "rules": {
+      "handSize": 10,
+      "scoreLimit": 25,
+      "houseRules": {
+        "packingHeat": {},
+        "reboot": {
+          "cost": 1
+        },
+        "comedyWriter": {
+          "number": 300,
+          "exclusive": true
+        },
+        "rando": {
+          "number": 1
+        },
+        "neverHaveIEver": {},
+        "happyEnding": {}
+      },
+      "stages": {
+        "timeLimitMode": "Soft",
+        "playing": {
+          "duration": 60,
+          "after": 2
+        },
+        "revealing": {
+          "duration": 45,
+          "after": 2
+        },
+        "judging": {
+          "duration": 20,
+          "after": 2
+        }
+      }
+    },
+    "public": false,
+    "audienceMode": false,
+    "decks": [
+      {
+        "source": "BuiltIn",
+        "id": "cah-base-en"
+      }
+    ]
+  },
+  "sources": {
+    "builtIn": {
+      "basePath": "decks",
+      "decks": [
+        "cah-base-en",
+        "cah-base-ptbr"
+      ]
+    },
+    "manyDecks": {
+      "baseUrl": "https://decks.rereadgames.com/",
+      "timeout": "PT10S",
+      "simultaneousConnections": 2
+    },
+    "jsonAgainstHumanity": {
+      "aboutUrl": "https://github.com/crhallberg/json-against-humanity",
+      "url": "https://raw.githubusercontent.com/crhallberg/json-against-humanity/v2.0/cah-all-compact.json"
+    }
+  },
+  "timeouts": {
+    "timeoutCheckFrequency": "PT1S",
+    "disconnectionGracePeriod": "PT2S"
+  },
+  "tasks": {
+    "rateLimit": 20,
+    "processTickFrequency": "PT0.5S"
+  },
+  "storage": {
+    "type": "InMemory",
+    "connection": {
+      "host": "postgres",
+      "port": 5432,
+      "user": "massivedecks",
+      "database": "massivedecks",
+      "password": "massivedecks",
+      "keepAlive": false
+    },
+    "abandonedTime": "PT15M",
+    "garbageCollectionFrequency": "PT5M"
+  },
+  "cache": {
+    "type": "InMemory",
+    "connection": {
+      "host": "postgres",
+      "port": 5432,
+      "user": "massivedecks",
+      "database": "massivedecks",
+      "password": "massivedecks",
+      "keepAlive": false
+    },
+    "checkAfter": "PT5M"
+  }
+}

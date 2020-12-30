@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "server.fullname" . }}
+data:
+  config.json5: |
+    {{ toJson .Values.config | nindent 4 }}

@@ -1,0 +1,9 @@
+# Default values for massivedecks.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+server:
+  enabled: true
+
+client:
+  enabled: true
