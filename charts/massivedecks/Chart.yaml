@@ -25,11 +25,11 @@ appVersion: 1.16.0
 dependencies:
   - name: server
     version: 0.1.0
-    repository: file://./server
+    repository: file://../massivedecks-server
     alias: server
   - name: client
     version: 0.1.0
-    repository: file://./client
+    repository: file://../massivedecks-client
     alias: client
 
 maintainers:
