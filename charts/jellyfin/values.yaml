@@ -8,7 +8,7 @@ image:
   repository: linuxserver/jellyfin
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "nightly-version-20201231.27-unstable"
+  tag: ""
 
 imagePullSecrets: []
 nameOverride: ""

@@ -1,6 +1,6 @@
 apiVersion: v2
-appVersion: 0.1.20201231
+appVersion: nightly-version-20201231.27-unstable
 description: A Helm chart for Kubernetes
 name: jellyfin
 type: application
-version: 0.1.0
+version: 0.1.1
