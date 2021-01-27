@@ -41,11 +41,18 @@ spec:
           env:
             - name: MYSQL_DATABASE
               value: {{ .Values.mysql.database }}
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "mariadb.fullname" . }}
+                  key: MYSQLPASSWORD
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ include "mariadb.fullname" . }}
                   key: MYSQLPASSWORD
+            - name: MYSQL_USER
+              value: {{ .Values.mysql.user }}
       volumes:
         - name: data
           persistentVolumeClaim:

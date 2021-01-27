@@ -31,7 +31,7 @@ spec:
               protocol: TCP
           env:
             - name: URL
-              value: "http://mail.stoicatedy.ovh"
+              value: "https://mail.stoicatedy.ovh"
             - name: SUPPORT_EMAIL
               value: "support@stoicatedy.ovh"
             - name: FLASK_ENV
@@ -47,7 +47,7 @@ spec:
             - name: EMAIL_DOMAIN
               value: "stoicatedy.ovh"
             - name: EMAIL_SERVERS_WITH_PRIORITY
-              value: "[(10, \"stoicatedy.ovh.\")]"
+              value: '[(10, "stoicatedy.ovh.")]'
             - name: DISABLE_ALIAS_SUFFIX
               value: "1"
             - name: DKIM_PRIVATE_KEY_PATH

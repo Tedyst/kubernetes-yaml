@@ -209,6 +209,8 @@ spec:
             - --entrypoints.web.address=:80
             - --entrypoints.websecure.address=:443
             - --entrypoints.websecure.http.tls
+            - --entrypoints.web.http.redirections.entryPoint.to=websecure
+            - --entrypoints.web.http.redirections.entryPoint.scheme=https
             - --providers.kubernetescrd
             - --providers.kubernetesingress
             # - --log.level=DEBUG
