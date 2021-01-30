@@ -16,11 +16,12 @@ spec:
       labels:
         k8s-app: email-postfix
     spec:
-      terminationGracePeriodSeconds: 2
       hostNetwork: true
+      terminationGracePeriodSeconds: 2
+      dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: postfix
-          image: tedyst/postfix-pqsql-docker:v1.0
+          image: ghcr.io/tedyst/postfix-pgsql-docker:latest
           imagePullPolicy: Always
           resources:
             limits:
@@ -33,12 +34,6 @@ spec:
             - mountPath: /etc/postfix/main.cf
               name: data
               subPath: main.cf
-            - mountPath: /etc/postfix/pgsql-relay-domains.cf
-              name: data
-              subPath: pgsql-relay-domains.cf
-            - mountPath: /etc/postfix/pgsql-transport-maps.cf
-              name: data
-              subPath: pgsql-transport-maps.cf
             - mountPath: /etc/postfix/sasl_passwd
               name: data
               subPath: sasl_passwd

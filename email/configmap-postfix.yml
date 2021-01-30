@@ -6,7 +6,7 @@ metadata:
 data:
   main.cf: |
     # POSTFIX config file, adapted for SimpleLogin
-    smtpd_banner = $myhostname ESMTP $mail_name (Ubuntu)
+    smtpd_banner = $myhostname ESMTP $mail_name
     biff = no
 
     # appending .domain is the MUA's job.
@@ -33,7 +33,7 @@ data:
     smtp_tls_security_level=may
 
     smtpd_sasl_auth_enable = yes
-    smtpd_client_restrictions = permit_sasl_authenticated, reject
+    # smtpd_client_restrictions = permit_sasl_authenticated, reject
 
     # See /usr/share/doc/postfix/TLS_README.gz in the postfix-doc package for
     # information on enabling SSL in the smtp client.
@@ -45,6 +45,7 @@ data:
     myhostname = mail.stoicatedy.ovh
     mydomain = stoicatedy.ovh
     myorigin = stoicatedy.ovh
+    mydestination = 
 
     # relayhost = smtp.rdslink.ro
     # smtp_sasl_auth_enable = yes
@@ -67,37 +68,17 @@ data:
     smtpd_sender_restrictions =
         permit_mynetworks,
         reject_non_fqdn_sender,
-        reject_unknown_sender_domain,
         permit
 
     # Recipient restrictions:
     smtpd_recipient_restrictions =
-      reject_unauth_pipelining,
-      reject_non_fqdn_recipient,
-      reject_unknown_recipient_domain,
       permit_mynetworks,
+      reject_non_fqdn_recipient,
+      reject_rbl_client zen.spamhaus.org=127.0.0.[2..11],
+      reject_rbl_client b.barracudacentral.org=127.0.0.2,
+      permit_sasl_authenticated,
       reject_unauth_destination,
-      reject_rbl_client zen.spamhaus.org,
-      reject_rbl_client bl.spamcop.net,
       permit
-  pgsql-relay-domains.cf: |
-    # postgres config
-    hosts = 10.43.51.78
-    user = myuser
-    password = mypassword
-    dbname = simplelogin
 
-    query = SELECT domain FROM custom_domain WHERE domain='%s' AND verified=true 
-        UNION SELECT '%s' WHERE '%s' = 'stoicatedy.ovh' LIMIT 1;
-  pgsql-transport-maps.cf: |
-    # postgres config
-    hosts = 10.43.51.78
-    user = myuser
-    password = mypassword
-    dbname = simplelogin
-
-    # forward to smtp:10.43.122.159:20381 for custom domain AND email domain
-    query = SELECT 'smtp:10.43.122.159:20381' FROM custom_domain WHERE domain = '%s' AND verified=true 
-        UNION SELECT 'smtp:10.43.122.159:20381' WHERE '%s' = 'stoicatedy.ovh' LIMIT 1;
   sasl_passwd: |
     [smtp.gmail.com]:587 username@gmail.com:password
