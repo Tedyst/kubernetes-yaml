@@ -1,5 +1,6 @@
 {{- if not .Values.persistentVolumeClaim.existingClaim -}}
 {{- if not .Values.persistentVolumeClaim.hostPath -}}
+{{- if .Values.persistentVolumeClaim.enable -}}
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -16,5 +17,6 @@ spec:
   resources:
     requests:
       storage: {{ .Values.persistentVolumeClaim.size }}
+{{- end }}
 {{- end }}
 {{- end }}

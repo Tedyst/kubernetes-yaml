@@ -37,12 +37,18 @@ spec:
               value: "{{ include "seafile.fullname" . }}-{{ .Values.database.nameOverride }}"
             - name: 'SEAFILE_SERVER_HOSTNAME'
               value: "{{ .Values.ingress.host }}"
+            - name: 'SEAFILE_HTTPS'
+              value: "true"
             - name: 'DB_ROOT_PASSWD'
               value: "{{ .Values.database.mysql.password }}"
             - name: 'DB_PASSWORD'
               value: "{{ .Values.database.mysql.password }}"
             - name: 'DB_USERNAME'
-              value: "root"
+              value: "seafile"
+            - name: 'SEAFILE_DOCKER_VERBOSE'
+              value: "true"
+            - name: 'MEMCACHED'
+              value: "{{ include "seafile.fullname" . }}-{{ .Values.memcached.nameOverride }}"
             {{ if .Values.envVariables }}
               {{- toYaml .Values.envVariables | nindent 12 }}
             {{ end }}
@@ -62,12 +68,12 @@ spec:
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- if or (or .Values.persistentVolumeClaim.existingClaim .Values.persistentVolumeClaim.hostPort) .Values.persistentVolumeClaim.enable }}
+          {{- if or (or .Values.persistentVolumeClaim.existingClaim .Values.persistentVolumeClaim.hostPath) .Values.persistentVolumeClaim.enable }}
           volumeMounts:
             - name: data
               mountPath: /shared
           {{- end }}
-      {{- if or (or .Values.persistentVolumeClaim.existingClaim .Values.persistentVolumeClaim.hostPort) .Values.persistentVolumeClaim.enable }}
+      {{- if or (or .Values.persistentVolumeClaim.existingClaim .Values.persistentVolumeClaim.hostPath) .Values.persistentVolumeClaim.enable }}
       volumes:
         - name: data
           {{- if .Values.persistentVolumeClaim.existingClaim }}

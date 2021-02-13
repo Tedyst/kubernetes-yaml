@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: ghcr.io/tedyst/seafile-docker/base-mc
-  pullPolicy: IfNotPresent
+  repository: ghcr.io/tedyst/seafile-docker/seafile-mc
+  pullPolicy: Always
   tag: ""
 
 imagePullSecrets: []
@@ -48,7 +48,7 @@ persistentVolumeClaim:
     - ReadWriteOnce
   existingClaim: 
   hostPath: 
-  keepOnDelete: true
+  keepOnDelete: false
 
 service:
   type: ClusterIP
@@ -94,6 +94,7 @@ database:
     memory: 128Mi
   # -- If creating a DB, what should be the size of the PersistentVolumeClaim
   persistentVolumeClaim:
+    keepOnDelete: false
     size: 300Mi
     accessModes:
       - ReadWriteOnce
@@ -107,3 +108,7 @@ database:
     password: "password"
     # -- The MySQL database
     database: "seafile"
+
+memcached:
+  create: true
+  nameOverride: "memcached"
