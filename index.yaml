@@ -3,9 +3,9 @@ entries:
   bitwarden-rs:
   - apiVersion: v2
     appVersion: 1.18.0
-    created: "2021-03-01T13:50:25.122230835Z"
+    created: "2021-04-05T12:07:54.260312136Z"
     description: A Helm chart for Kubernetes
-    digest: c7dd9408e4ff4af60b51cd538fa6174228134c190187ba2d398e04d297129759
+    digest: 50e65bba3226bb7460eec54170333ec1ac771d543fd4fc67d902980da9ff60e2
     maintainers:
     - email: stoicatedy@gmail.com
       name: Stoica Tedy
@@ -17,7 +17,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 1.18.0
-    created: "2021-03-01T13:50:25.121305731Z"
+    created: "2021-04-05T12:07:54.259074588Z"
     description: A Helm chart for Kubernetes
     digest: c3b39e158c92323aa93b295b1fd3da6e1270067c96645fa42c1616a92c980022
     maintainers:
@@ -32,9 +32,9 @@ entries:
   cloudflare-docker-updater:
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2021-03-01T13:50:25.122805137Z"
+    created: "2021-04-05T12:07:54.261229572Z"
     description: A Helm chart for Kubernetes
-    digest: 016ce6497b2b4529b201ff45c4dc59d12f6941dbcc48d1413f8110e4c0fe5e7f
+    digest: 39c6da701dcfeaa3b979f256f47f001c22f8876aa0c2a7a57fb477dca0318afb
     maintainers:
     - email: stoicatedy@gmail.com
       name: Stoica Tedy
@@ -47,9 +47,9 @@ entries:
   jackett:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-03-01T13:50:25.123469539Z"
+    created: "2021-04-05T12:07:54.261809994Z"
     description: A Helm chart for Kubernetes
-    digest: 916426b817c64049899098ed05a0ac2af6a85ac7e047cafe7111e99aeaa2acc9
+    digest: 36538ef6ded3b493bf58e2f18b6eb683f477ad24b4e9372d032ce27361808924
     name: jackett
     type: application
     urls:
@@ -58,9 +58,9 @@ entries:
   jellyfin:
   - apiVersion: v2
     appVersion: nightly-version-20201231.27-unstable
-    created: "2021-03-01T13:50:25.124888644Z"
+    created: "2021-04-05T12:07:54.263058443Z"
     description: A Helm chart for Kubernetes
-    digest: c26b0702f9200b84b4f264e71725634e78c114da24ed8a146b139ba43bc95cbe
+    digest: 18884ef7cc82bdfbb8b1fa9eb47beed563017d90588281c38f8b77a7bf4af733
     name: jellyfin
     type: application
     urls:
@@ -68,7 +68,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 0.1.20201231
-    created: "2021-03-01T13:50:25.124227841Z"
+    created: "2021-04-05T12:07:54.262452619Z"
     description: A Helm chart for Kubernetes
     digest: da3e4fb11d4aba684ecd8faf361e010c6d620f31d74ae8c527adb2814ebc0e98
     name: jellyfin
@@ -79,9 +79,9 @@ entries:
   mariadb:
   - apiVersion: v2
     appVersion: 110.4.17mariabionic-ls5
-    created: "2021-03-01T13:50:25.128041254Z"
+    created: "2021-04-05T12:07:54.265329532Z"
     description: linuxserver/mariadb chart
-    digest: 7e2a790d6122e72aee96856d7ba53b325f3f7207b2264051fe56996e1372b03c
+    digest: f1370302eab24aaa8d74714250aea43fe9c6ddcc053c0bb2eb5af7ac1cb05f66
     maintainers:
     - email: stoicatedy@gmail.com
       name: Stoica Tedy
@@ -93,7 +93,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 110.4.17mariabionic-ls5
-    created: "2021-03-01T13:50:25.126961251Z"
+    created: "2021-04-05T12:07:54.26476311Z"
     description: linuxserver/mariadb chart
     digest: 448d0b341c0e86ee7a24f59ca1e90baabd8ac244d4e19c6d13ad407b782a492f
     maintainers:
@@ -107,7 +107,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 110.4.17mariabionic-ls5
-    created: "2021-03-01T13:50:25.126245448Z"
+    created: "2021-04-05T12:07:54.264194987Z"
     description: linuxserver/mariadb chart
     digest: 44535bc864f5ed81a2dd6dd06edd97188fd43f91a5e0c26cd0c13669f869c077
     name: mariadb
@@ -117,7 +117,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 110.4.17mariabionic-ls5
-    created: "2021-03-01T13:50:25.125579846Z"
+    created: "2021-04-05T12:07:54.263588464Z"
     description: linuxserver/mariadb chart
     digest: c6a4dda437c527512cf47b085a12cc36bd15c0fcec9bca3b8d535d5481ae215e
     name: mariadb
@@ -128,7 +128,7 @@ entries:
   massivedecks:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-03-01T13:50:25.12966536Z"
+    created: "2021-04-05T12:07:54.267011497Z"
     dependencies:
     - alias: server
       name: massivedecks-server
@@ -139,7 +139,7 @@ entries:
       repository: file://../massivedecks-client
       version: 0.1.0
     description: A Helm chart for Kubernetes
-    digest: c869c083ddecd75d5109c2667bf199fcdc603359eaf8c3fd249cf6beca89717b
+    digest: 42adfe4f9044a3d195405fad2cdca6882d6c52e82cdc5a8d08ebab907ab59e2d
     maintainers:
     - email: stoicatedy@gmail.com
       name: Stoica Tedy
@@ -152,9 +152,9 @@ entries:
   massivedecks-client:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-03-01T13:50:25.130287262Z"
+    created: "2021-04-05T12:07:54.267626721Z"
     description: A Helm chart for Kubernetes
-    digest: 3ed1211b0c61198c9f3fc1a7113fd9c517a02c212debab213a70f268938d73d0
+    digest: 69b9e595b6aa1879aa5a8c90878224e34a1749fe4324adb9a3d782a9b136a3b9
     maintainers:
     - email: stoicatedy@gmail.com
       name: Stoica Tedy
@@ -167,9 +167,9 @@ entries:
   massivedecks-server:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-03-01T13:50:25.131192065Z"
+    created: "2021-04-05T12:07:54.268551257Z"
     description: A Helm chart for Kubernetes
-    digest: ca88d705e994359c32d0fc56048e0afeae3d3a5504f7c5cad292c109972808db
+    digest: 82ae0c8949a947d5fe5821a4cf2c02bdc98e02a8cb136e9cf87e2156d1a56c2f
     maintainers:
     - email: stoicatedy@gmail.com
       name: Stoica Tedy
@@ -182,9 +182,9 @@ entries:
   openvpn-exporter:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-03-01T13:50:25.131787067Z"
+    created: "2021-04-05T12:07:54.269227484Z"
     description: A Helm chart for Kubernetes
-    digest: 0d1cb8a1a16a01f0d6f75c66be13cf701e6e0a14ddb3b3cf632a6168c8c07d3d
+    digest: dc29d9d517d33ff24df073537d23cc5fa9d8a7c79fb90247db2e56018cddd88a
     maintainers:
     - email: stoicatedy@gmail.com
       name: Stoica Tedy
@@ -197,9 +197,9 @@ entries:
   pihole:
   - apiVersion: v1
     appVersion: 5.2.1
-    created: "2021-03-01T13:50:25.134028674Z"
+    created: "2021-04-05T12:07:54.270476933Z"
     description: Installs pihole in kubernetes
-    digest: 133945df2d1ff28428689b77b070a8cd0f0ae648cfa25105a01d0c1ff9eed574
+    digest: 591f6fb2cb7c5f9ab88e8b543cc7df1f8b11e19e6e8a1e3f15fd8f1cfd6d077f
     home: https://github.com/MoJo2600/pihole-kubernetes/tree/master/charts/pihole
     icon: https://i2.wp.com/pi-hole.net/wp-content/uploads/2016/12/Vortex-R.png
     maintainers:
@@ -217,7 +217,7 @@ entries:
   seafile:
   - apiVersion: v2
     appVersion: 7.1.5
-    created: "2021-03-01T13:50:25.13858749Z"
+    created: "2021-04-05T12:07:54.274924906Z"
     dependencies:
     - alias: database
       condition: database.create
@@ -229,7 +229,7 @@ entries:
       repository: https://charts.bitnami.com/bitnami
       version: 5.5.1
     description: A Helm chart for Kubernetes
-    digest: 8bd0faeb683e8f615213746148719dada7aafe0f5505c5a51f0c5305a0eae3c9
+    digest: 2a73a801c0e0b784136762d6e1efcd8313c70e5b808957c1f509409dddd26e53
     maintainers:
     - email: stoicatedy@gmail.com
       name: Stoica Tedy
@@ -242,7 +242,7 @@ entries:
   spotifyutils:
   - apiVersion: v2
     appVersion: 1.1.0
-    created: "2021-03-01T13:50:25.146731317Z"
+    created: "2021-04-05T12:07:54.283437738Z"
     dependencies:
     - alias: database
       condition: database.create
@@ -250,7 +250,7 @@ entries:
       repository: file://../mariadb
       version: 0.1.1
     description: SpotifyUtils
-    digest: 61298bc6c5f03908c87f88bbe2a9b7a731aaa4bb2d641646ed70117c0082fdfa
+    digest: 780e40f3a4f3406fdb493ebac6d7bfb3dbd31611a0fe8cd7fff3bbda6fe9d0f2
     maintainers:
     - email: stoicatedy@gmail.com
       name: Stoica Tedy
@@ -262,7 +262,7 @@ entries:
     version: 0.1.6
   - apiVersion: v2
     appVersion: 1.0.3
-    created: "2021-03-01T13:50:25.145334713Z"
+    created: "2021-04-05T12:07:54.282140988Z"
     dependencies:
     - alias: database
       condition: database.create
@@ -282,7 +282,7 @@ entries:
     version: 0.1.5
   - apiVersion: v2
     appVersion: 1.0.3
-    created: "2021-03-01T13:50:25.144028608Z"
+    created: "2021-04-05T12:07:54.280826037Z"
     dependencies:
     - alias: database
       condition: database.create
@@ -302,7 +302,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 1.0.3
-    created: "2021-03-01T13:50:25.142624604Z"
+    created: "2021-04-05T12:07:54.279586388Z"
     dependencies:
     - alias: database
       condition: database.create
@@ -322,7 +322,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2021-03-01T13:50:25.141140199Z"
+    created: "2021-04-05T12:07:54.27834804Z"
     dependencies:
     - alias: database
       condition: database.create
@@ -342,7 +342,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-03-01T13:50:25.139871594Z"
+    created: "2021-04-05T12:07:54.27707739Z"
     dependencies:
     - alias: database
       condition: database.create
@@ -360,4 +360,4 @@ entries:
     urls:
     - spotifyutils-0.1.0.tgz
     version: 0.1.0
-generated: "2021-03-01T13:50:25.120059727Z"
+generated: "2021-04-05T12:07:54.256596291Z"
