@@ -204,7 +204,7 @@ spec:
       serviceAccountName: traefik-ingress-controller
       containers:
         - name: traefik
-          image: traefik:v2.3.3
+          image: traefik:v2.4.8
           args:
             - --entrypoints.web.address=:80
             - --entrypoints.websecure.address=:443
@@ -214,10 +214,6 @@ spec:
             - --providers.kubernetescrd
             - --providers.kubernetesingress
             # - --log.level=DEBUG
-          resources:
-            limits:
-              memory: "80Mi"
-              cpu: "200m"
           ports:
             - name: web
               containerPort: 80

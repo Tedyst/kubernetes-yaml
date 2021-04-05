@@ -1,14 +1,16 @@
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
 metadata:
   name: testing
   namespace: tedy
 spec:
-  routes:
-    - match: Host(`testing.stoicatedy.ovh`) && PathPrefix(`/`)
-      kind: Rule
-      services:
-        - name: testing
-          port: 80
   tls:
-    secretName: certificate-stoicatedy-ovh
+    - secretName: certificate-stoicatedy-ovh
+  rules:
+    - host: "testing.stoicatedy.ovh"
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: testing
+              servicePort: 80

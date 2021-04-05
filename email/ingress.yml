@@ -1,19 +1,19 @@
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
 metadata:
   name: email-ingress
   namespace: email
 spec:
-  routes:
-    - match: Host(`mail.stoicatedy.ovh`)
-      kind: Rule
-      services:
-        - name: email-simplelogin
-          port: 7777
-  middlewares:
-    - name: hsts-header
   tls:
-    secretName: certificate-stoicatedy-ovh
+    - secretName: certificate-stoicatedy-ovh
+  rules:
+    - host: "mail.stoicatedy.ovh"
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: email-simplelogin
+              servicePort: 7777
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate

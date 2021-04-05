@@ -87,11 +87,11 @@ database:
   create: true
   nameOverride: "database"
   limits:
-    cpu: 100m
-    memory: 128Mi
+    cpu: 400m
+    memory: 256Mi
   requests:
-    cpu: 100m
-    memory: 128Mi
+    cpu: 400m
+    memory: 256Mi
   # -- If creating a DB, what should be the size of the PersistentVolumeClaim
   persistentVolumeClaim:
     keepOnDelete: false

@@ -23,10 +23,6 @@ spec:
         - name: postfix
           image: ghcr.io/tedyst/postfix-pgsql-docker:latest
           imagePullPolicy: Always
-          resources:
-            limits:
-              memory: "50Mi"
-              cpu: "50m"
           ports:
             - containerPort: 25
               protocol: TCP

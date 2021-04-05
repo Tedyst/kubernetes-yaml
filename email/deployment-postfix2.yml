@@ -1,0 +1,38 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    k8s-app: smtp-server
+  name: smtp-server
+  namespace: email
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      k8s-app: smtp-server
+  template:
+    metadata:
+      labels:
+        k8s-app: smtp-server
+    spec:
+      terminationGracePeriodSeconds: 2
+      hostname: "stoicatedy-ovh"
+      containers:
+        - name: postfix
+          image: ghcr.io/tedyst/docker-send-only-postfix:latest
+          imagePullPolicy: Always
+          env:
+            - name: DOMAIN
+              value: "stoicatedy.ovh"
+          volumeMounts:
+            - mountPath: /secret/dkim.key
+              name: data
+              subPath: private.key
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: arm
+      volumes:
+        - name: data
+          secret:
+            secretName: email-simplelogin

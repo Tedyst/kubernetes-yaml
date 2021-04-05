@@ -20,16 +20,14 @@ spec:
       containers:
         - name: simplelogin
           image: ghcr.io/tedyst/simplelogin
-          resources:
-            limits:
-              memory: "150Mi"
-              cpu: "50m"
           command: ["python"]
           args: ["email_handler.py"]
           ports:
             - containerPort: 20381
               protocol: TCP
           env:
+            - name: LOCAL_FILE_UPLOAD
+              value: "1"
             - name: URL
               value: "https://mail.stoicatedy.ovh"
             - name: SUPPORT_EMAIL
@@ -46,6 +44,8 @@ spec:
               value: "email-postfix"
             - name: EMAIL_DOMAIN
               value: "stoicatedy.ovh"
+            - name: ALIAS_DOMAINS
+              value: '["stoicatedy.ovh"]'
             - name: EMAIL_SERVERS_WITH_PRIORITY
               value: '[(10, "stoicatedy.ovh.")]'
             - name: DISABLE_ALIAS_SUFFIX
