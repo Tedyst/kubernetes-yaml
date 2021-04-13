@@ -19,7 +19,7 @@ spec:
       terminationGracePeriodSeconds: 2
       initContainers:
         - name: simplelogin-migrate
-          image: ghcr.io/tedyst/simplelogin
+          image: simplelogin/app:3.4.0
           command: ["flask"]
           args: ["db", "upgrade"]
           env:
@@ -53,9 +53,11 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /secret
+            - name: email-data
+              mountPath: /code/static/upload
       containers:
         - name: simplelogin
-          image: ghcr.io/tedyst/simplelogin
+          image: simplelogin/app:3.4.0
           ports:
             - containerPort: 7777
               protocol: TCP
@@ -108,10 +110,15 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /secret
+            - name: email-data
+              mountPath: /code/static/upload
       volumes:
         - name: data
           secret:
             secretName: email-simplelogin
+        - name: email-data
+          persistentVolumeClaim:
+            claimName: email-simplelogin
       nodeSelector:
         kubernetes.io/os: linux
         kubernetes.io/arch: arm

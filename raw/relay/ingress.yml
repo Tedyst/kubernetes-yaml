@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: sentry-relay
+  namespace: tedy
+spec:
+  tls:
+    - secretName: certificate-stoicatedy-ovh
+  rules:
+    - host: sentry-relay.stoicatedy.ovh
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: sentry-relay
+              servicePort: 80

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sentry-relay
+  namespace: tedy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sentry-relay
+  template:
+    metadata:
+      labels:
+        app: sentry-relay
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: sentry-relay
+          imagePullPolicy: Always
+          image: ghcr.io/tedyst/sentry-relay:armv7
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: data-volume
+              mountPath: /work/.relay
+      volumes:
+        - name: data-volume
+          configMap:
+            name: sentry-relay
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: arm

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sentry-relay
+  namespace: tedy
+data:
+  config.yml: |
+    relay:
+      mode: proxy
+      upstream: https://o557174.ingest.sentry.io
+      host: 0.0.0.0
+      port: 3000
+      tls_port: ~
+      tls_identity_path: ~
+      tls_identity_password: ~
